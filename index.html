@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MART Mail-Generator</title>
+    
+    <!-- Google Fonts: Space Grotesk & Material Symbols Outlined -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
+
+    <style>
+        :root {
+            --primary-light: #6366f1;
+            --secondary-light: #a855f7;
+            --bg-light-1: #f0f9ff;
+            --bg-light-2: #e0f2fe;
+            --text-light-1: #1f2937;
+            --text-light-2: #4b5563;
+            --card-bg-light: #ffffff;
+            --border-light: #e5e7eb;
+            --shadow-light: rgba(0, 0, 0, 0.1);
+            --success-light: #22c55e;
+            --error-light: #ef4444;
+
+            --primary-dark: #818cf8;
+            --secondary-dark: #c084fc;
+            --bg-dark-1: #0f172a;
+            --bg-dark-2: #1e293b;
+            --text-dark-1: #e2e8f0;
+            --text-dark-2: #94a3b8;
+            --card-bg-dark: #1f2937;
+            --border-dark: #374151;
+            --shadow-dark: rgba(0, 0, 0, 0.5);
+            --success-dark: #22c55e;
+            --error-dark: #ef4444;
+        }
+
+        /* Basic Reset & Box Sizing */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            overflow: hidden; /* Prevent body scroll while splash screen is active */
+            background-color: var(--bg-light-1);
+            color: var(--text-light-1);
+            transition: background-color 0.3s, color 0.3s;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body.dark {
+            background-color: var(--bg-dark-1);
+            color: var(--text-dark-1);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-light);
+            border-radius: 10px;
+        }
+        body.dark ::-webkit-scrollbar-thumb {
+            background: var(--primary-dark);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-light);
+        }
+        body.dark ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-dark);
+        }
+
+        /* Hide scrollbars for specific elements */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Material Icons sizing adjustment */
+        .material-symbols-outlined {
+            font-size: inherit;
+            vertical-align: middle;
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Splash screen loading bar animation */
+        @keyframes fill-bar {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+        .animate-fill-bar {
+            animation: fill-bar 2s ease-out forwards;
+        }
+        
+        /* Toast notification animations */
+        @keyframes toastIn {
+            from { transform: translateY(100%) scale(0.9); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+        @keyframes toastOut {
+            from { transform: translateY(0) scale(1); opacity: 1; }
+            to { transform: translateY(100%) scale(0.9); opacity: 0; }
+        }
+        .toast-in { animation: toastIn 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards; }
+        .toast-out { animation: toastOut 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards; }
+
+        /* A simple spinner for buttons */
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .spinner {
+            display: inline-block;
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+        }
+        body.dark .spinner {
+            border: 2px solid rgba(0,0,0,0.3);
+            border-top-color: black;
+        }
+        
+        /* Fade in animation for elements */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        /* Hero text gradient animation */
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animate-gradient-text {
+            background-size: 200% auto;
+            animation: gradient-shift 3s linear infinite;
+        }
+
+        /* Button base styles */
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: translateZ(0); /* Force GPU acceleration */
+        }
+        .btn:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .btn:active {
+            transform: translateY(1px) scale(0.98);
+            box-shadow: none;
+        }
+
+        /* Primary button */
+        .btn-primary {
+            background-image: linear-gradient(to right, var(--primary-light) 0%, var(--secondary-light) 51%, var(--primary-light) 100%);
+            color: white;
+            background-size: 200% auto;
+        }
+        .btn-primary:hover {
+            background-position: right center;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+        }
+
+        /* Danger button */
+        .btn-danger {
+            background-image: linear-gradient(to right, var(--error-light) 0%, #dc2626 51%, var(--error-light) 100%);
+            color: white;
+            background-size: 200% auto;
+        }
+        .btn-danger:hover {
+            background-position: right center;
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+        }
+
+        /* Email Item hover effect */
+        .email-item-hover:hover {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        body.dark .email-item-hover:hover {
+            box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.05), 0 4px 6px -2px rgba(255, 255, 255, 0.02);
+        }
+
+        /* Animated background for app container */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #f0f9ff, #e0f2fe, #f0f9ff);
+            background-size: 400% 400%;
+            animation: background-gradient 15s ease infinite;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        body.dark::before {
+            background: linear-gradient(45deg, #1f2937, #111827, #1f2937);
+            opacity: 0.5;
+        }
+
+        @keyframes background-gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Email body iframe styling */
+        #email-body {
+            background-color: var(--card-bg-light);
+            color: var(--text-light-1);
+        }
+        body.dark #email-body {
+            background-color: var(--card-bg-dark);
+            color: var(--text-dark-1);
+        }
+
+        /* Utility classes (mimicking Tailwind) */
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .justify-between { justify-content: space-between; }
+        .justify-start { justify-content: flex-start; }
+        .gap-2 { gap: 0.5rem; }
+        .gap-3 { gap: 0.75rem; }
+        .gap-4 { gap: 1rem; }
+        .w-full { width: 100%; }
+        .h-full { height: 100%; }
+        .h-screen { height: 100vh; }
+        .max-w-md { max-width: 28rem; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .p-4 { padding: 1rem; }
+        .p-5 { padding: 1.25rem; }
+        .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+        .px-4 { padding-left: 1rem; padding-right: 1rem; }
+        .rounded-full { border-radius: 9999px; }
+        .rounded-xl { border-radius: 0.75rem; }
+        .rounded-2xl { border-radius: 1rem; }
+        .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+        .shadow-xl { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); }
+        .shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1); }
+        .shadow-inner { box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06); }
+        .text-white { color: white; }
+        .text-black { color: black; }
+        .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+        .text-base { font-size: 1rem; line-height: 1.5rem; }
+        .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+        .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+        .text-2xl { font-size: 1.5rem; line-height: 2rem; }
+        .text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+        .text-5xl { font-size: 3rem; line-height: 1; }
+        .text-6xl { font-size: 3.75rem; line-height: 1; }
+        .font-bold { font-weight: 700; }
+        .font-semibold { font-weight: 600; }
+        .font-medium { font-weight: 500; }
+        .font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+        .font-extrabold { font-weight: 800; }
+        .text-center { text-align: center; }
+        .truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .bg-clip-text { -webkit-background-clip: text; background-clip: text; }
+        .text-transparent { color: transparent; }
+        .relative { position: relative; }
+        .fixed { position: fixed; }
+        .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+        .z-10 { z-index: 10; }
+        .z-20 { z-index: 20; }
+        .z-50 { z-index: 50; }
+        .overflow-hidden { overflow: hidden; }
+        .overflow-y-auto { overflow-y: auto; }
+        .space-y-3 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.75rem; }
+        .space-y-4 > :not([hidden]) ~ :not([hidden]) { margin-top: 1rem; }
+        .space-y-5 > :not([hidden]) ~ :not([hidden]) { margin-top: 1.25rem; }
+        .grid { display: grid; }
+        .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .mt-1 { margin-top: 0.25rem; }
+        .mt-2 { margin-top: 0.5rem; }
+        .mt-3 { margin-top: 0.75rem; }
+        .mt-4 { margin-top: 1rem; }
+        .mt-10 { margin-top: 2.5rem; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-3 { margin-bottom: 0.75rem; }
+        .py-12 { padding-top: 3rem; padding-bottom: 3rem; }
+        .pr-2 { padding-right: 0.5rem; }
+        .pr-10 { padding-right: 2.5rem; }
+        .ml-2 { margin-left: 0.5rem; }
+        .w-10 { width: 2.5rem; }
+        .w-11 { width: 2.75rem; }
+        .h-11 { height: 2.75rem; }
+        .h-2 { height: 0.5rem; }
+        .w-64 { width: 16rem; }
+        .opacity-0 { opacity: 0; }
+        .opacity-90 { opacity: 0.9; }
+        .opacity-75 { opacity: 0.75; }
+        .hidden { display: none; }
+        .flex-grow { flex-grow: 1; }
+        .flex-shrink-0 { flex-shrink: 0; }
+        .top-0 { top: 0; }
+        .left-1\/2 { left: 50%; }
+        .-translate-x-1\/2 { transform: translateX(-50%); }
+        .pointer-events-none { pointer-events: none; }
+        .cursor-pointer { cursor: pointer; }
+        .cursor-not-allowed { cursor: not-allowed; }
+        .backdrop-blur-md { backdrop-filter: blur(8px); }
+        .bg-gray-50\/80 { background-color: rgba(249, 250, 251, 0.8); }
+        .border-b { border-bottom-width: 1px; }
+        .border-t { border-top-width: 1px; }
+        .border { border-width: 1px; }
+        .border-0 { border-width: 0; }
+        .border-gray-100 { border-color: #f3f4f6; }
+        .border-gray-200 { border-color: #e5e7eb; }
+        .border-gray-700 { border-color: #374151; }
+        .border-green-400 { border-color: #4ade80; }
+        .bg-gray-50 { background-color: #f9fafb; }
+        .bg-white { background-color: white; }
+        .bg-gradient-to-r { background-image: linear-gradient(to right, var(--tw-gradient-stops)); }
+        .from-blue-500 { --tw-gradient-from: #3b82f6; --tw-gradient-to: rgba(59, 130, 246, 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+        .via-purple-600 { --tw-gradient-via: #9333ea; }
+        .to-pink-500 { --tw-gradient-to: #ec4899; }
+        .from-indigo-500 { --tw-gradient-from: #6366f1; --tw-gradient-to: rgba(99, 102, 241, 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+        .to-purple-500 { --tw-gradient-to: #a855f7; }
+        .from-green-500 { --tw-gradient-from: #22c55e; --tw-gradient-to: rgba(34, 197, 94, 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+        .to-emerald-600 { --tw-gradient-to: #059669; }
+        .bg-gradient-to-br { background-image: linear-gradient(to bottom right, var(--tw-gradient-stops)); }
+        .text-gray-400 { color: #9ca3af; }
+        .text-gray-500 { color: #6b7280; }
+        .text-gray-800 { color: #1f2937; }
+        .text-orange-500 { color: #f97316; }
+        .hover\:text-orange-600:hover { color: #ea580c; }
+        .transition-colors { transition-property: color, background-color, border-color, text-decoration-color, fill, stroke; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
+        .transition-opacity { transition-property: opacity; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
+        .transition-all { transition-property: all; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
+        .duration-300 { transition-duration: 300ms; }
+        .duration-500 { transition-duration: 500ms; }
+        .duration-200 { transition-duration: 200ms; }
+        .transform { transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)); }
+        .hover\:scale-105:hover { --tw-scale-x: 1.05; --tw-scale-y: 1.05; }
+        .hover\:scale-110:hover { --tw-scale-x: 1.1; --tw-scale-y: 1.1; }
+        .active\:scale-95:active { --tw-scale-x: 0.95; --tw-scale-y: 0.95; }
+        .hover\:rotate-90:hover { --tw-rotate: 90deg; }
+
+        /* Dark mode specific styles */
+        body.dark .bg-gray-900 { background-color: #0f172a; }
+        body.dark .bg-gray-900\/80 { background-color: rgba(15, 23, 42, 0.8); }
+        body.dark .bg-gray-800 { background-color: #1f2937; }
+        body.dark .bg-gray-700 { background-color: #374151; }
+        body.dark .text-gray-200 { color: #e5e7eb; }
+        body.dark .text-gray-400 { color: #9ca3af; }
+        body.dark .text-gray-500 { color: #6b7280; }
+        body.dark .from-blue-400 { --tw-gradient-from: #60a5fa; --tw-gradient-to: rgba(96, 165, 250, 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+        body.dark .via-purple-500 { --tw-gradient-via: #a855f7; }
+        body.dark .to-pink-400 { --tw-gradient-to: #f472b6; }
+        body.dark .from-indigo-400 { --tw-gradient-from: #818cf8; --tw-gradient-to: rgba(129, 140, 248, 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+        body.dark .to-purple-400 { --tw-gradient-to: #c084fc; }
+        body.dark .from-green-600 { --tw-gradient-from: #16a34a; --tw-gradient-to: rgba(22, 163, 74, 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+        body.dark .to-emerald-700 { --tw-gradient-to: #047857; }
+        body.dark .border-green-600 { border-color: #059669; }
+        body.dark .hover\:bg-gray-700:hover { background-color: #374151; }
+
+        /* Keyframe for bounce-slow */
+        @keyframes bounce-slow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        .animate-bounce-slow {
+            animation: bounce-slow 2s infinite ease-in-out;
+        }
+
+        /* Keyframe for pulse */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        /* Keyframe for header gradient */
+        @keyframes header-gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .header-gradient-animation {
+            background-size: 200% auto;
+            animation: header-gradient 5s ease infinite;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+            .text-5xl { font-size: 2.5rem; }
+            .text-6xl { font-size: 3rem; }
+            .h-\[60vh\] { height: 70vh; } /* More space for email content on small screens */
+        }
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Splash Screen -->
+    <div id="splash-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-900 transition-opacity duration-500">
+        <div class="text-center">
+            <h1 class="text-5xl font-extrabold bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500 dark:from-blue-400 dark:via-purple-500 dark:to-pink-400 text-transparent bg-clip-text animate-gradient-text px-4">MART Mail-Generator</h1>
+            <p class="text-gray-500 dark:text-gray-400 mt-3 text-lg">No Login, No Signup, Just Privacy.</p>
+        </div>
+        <div class="w-64 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden mt-10 shadow-inner">
+            <div id="loading-bar" class="h-full bg-gradient-to-r from-blue-500 to-purple-600 animate-fill-bar rounded-full"></div>
+        </div>
+        <p class="text-gray-400 dark:text-gray-500 text-sm mt-4 animate-pulse">Loading amazingness...</p>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app-container" class="max-w-md mx-auto h-screen flex flex-col opacity-0 transition-opacity duration-500 relative z-10">
+        
+        <!-- Home Screen -->
+        <div id="home-screen" class="flex flex-col h-full">
+            <header class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 sticky top-0 bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-md z-20 shadow-sm">
+                <div class="w-10"></div> <!-- Spacer -->
+                <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 dark:from-blue-400 dark:to-purple-500 text-transparent bg-clip-text header-gradient-animation">MART Mail-Generator</h1>
+                <button id="theme-toggle-btn" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors transform hover:scale-110 active:scale-95">
+                    <span id="theme-icon" class="material-symbols-outlined">light_mode</span>
+                </button>
+            </header>
+
+            <main class="p-4 space-y-5 flex-grow overflow-y-auto no-scrollbar relative">
+                <!-- Action Buttons -->
+                <div class="grid grid-cols-2 gap-4">
+                    <button id="change-mail-btn" class="btn btn-primary">
+                        <span class="material-symbols-outlined">autorenew</span>
+                        <span>New Mail</span>
+                    </button>
+                    <button id="delete-mail-btn" class="btn btn-danger">
+                        <span class="material-symbols-outlined">delete_forever</span>
+                        <span>Delete Mail</span>
+                    </button>
+                </div>
+
+                <!-- Email Display Card -->
+                <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-xl fade-in border border-gray-100 dark:border-gray-700">
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Your temporary email address</p>
+                    <div class="flex items-center justify-between gap-3 relative">
+                        <span id="email-address" class="font-mono text-xl truncate font-bold bg-gradient-to-r from-indigo-500 to-purple-500 dark:from-indigo-400 dark:to-purple-400 text-transparent bg-clip-text pr-10">loading...</span>
+                        <button id="copy-btn" class="flex-shrink-0 p-2.5 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 text-white shadow-md hover:from-blue-600 hover:to-purple-600 transition-all transform hover:scale-110 active:scale-95">
+                            <span class="material-symbols-outlined text-xl">content_copy</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Email Status Card -->
+                <div class="bg-gradient-to-r from-green-500 to-emerald-600 dark:from-green-600 dark:to-emerald-700 p-5 rounded-2xl shadow-xl text-white fade-in border border-green-400 dark:border-green-600">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-3xl animate-bounce-slow">check_circle</span>
+                        <div>
+                            <p class="font-bold text-lg">Email Active</p>
+                            <p class="text-sm opacity-90">Your temporary email is ready to receive messages</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Inbox Section -->
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <h2 class="text-xl font-bold">Inbox</h2>
+                        <button id="refresh-btn" class="p-2.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors transform hover:rotate-90 active:scale-95">
+                            <span class="material-symbols-outlined">refresh</span>
+                        </button>
+                    </div>
+
+                    <div id="empty-inbox" class="text-center py-12 px-4 bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700">
+                        <span class="material-symbols-outlined text-6xl text-gray-400 animate-pulse">mark_email_unread</span>
+                        <p class="mt-4 text-gray-500 dark:text-gray-400 text-lg">Your inbox is empty — Waiting for incoming emails...</p>
+                        <p class="text-sm text-gray-400 dark:text-gray-500 mt-2">Messages usually arrive within seconds.</p>
+                    </div>
+                    
+                    <div id="inbox-list" class="space-y-4">
+                        <!-- Email items will be injected here by JavaScript -->
+                    </div>
+                </div>
+            </main>
+            
+            <footer class="p-4 text-center text-xs text-gray-500 dark:text-gray-400 border-t border-gray-200 dark:border-gray-700 bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-md shadow-inner">
+                &copy; 2025 MART Mail-Generator. Crafted with ❤️ by <a href="https://rovermdashfaq.github.io/portfolio/" target="_blank" class="text-orange-500 hover:text-orange-600 transition-colors font-medium">Md. Ashfaqur Rahman Tanim</a>.
+            </footer>
+        </div>
+
+        <!-- Email Details Screen -->
+        <div id="email-screen" class="hidden flex-col h-full">
+            <header class="flex items-center p-4 border-b border-gray-200 dark:border-gray-700 sticky top-0 bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-md z-20 shadow-sm">
+                <button id="back-to-inbox-btn" class="p-2.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors transform hover:scale-110 active:scale-95">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                </button>
+                <h2 class="text-lg font-bold text-center flex-grow truncate px-4" id="email-subject-header">Email Details</h2>
+            </header>
+
+            <main class="p-4 flex-grow overflow-y-auto no-scrollbar space-y-4">
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 fade-in">
+                    <div class="flex items-start gap-3">
+                        <div id="email-avatar" class="w-11 h-11 rounded-full bg-gradient-to-br from-purple-500 to-indigo-500 text-white flex items-center justify-center text-xl font-bold flex-shrink-0 shadow-md"></div>
+                        <div class="flex-grow">
+                            <div class="flex justify-between items-baseline">
+                               <p id="email-from" class="font-bold text-base truncate pr-2"></p>
+                               <p id="email-timestamp" class="text-xs text-gray-500 dark:text-gray-400 flex-shrink-0 ml-2"></p>
+                            </div>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">to: <span id="email-to" class="font-medium"></span></p>
+                        </div>
+                    </div>
+                    <p class="font-semibold text-lg mt-3" id="email-subject-display"></p>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl mt-2 h-[60vh] overflow-hidden border border-gray-100 dark:border-gray-700 fade-in">
+                     <iframe id="email-body" class="w-full h-full border-0 rounded-2xl" sandbox="allow-same-origin allow-scripts"></iframe>
+                </div>
+
+                <button id="delete-message-btn" class="btn btn-danger">
+                    <span class="material-symbols-outlined">delete</span>
+                    <span>Delete Message (Local)</span>
+                </button>
+            </main>
+        </div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div id="toast-container" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 space-y-3 flex flex-col items-center pointer-events-none"></div>
+    
+    <script>
+        // --- STATE MANAGEMENT ---
+        const API_BASE = 'https://api.mail.tm';
+        let currentAccount = {
+            id: null,
+            address: null,
+            password: null,
+            token: null,
+        };
+        let inboxInterval = null;
+
+        // --- DOM ELEMENTS ---
+        const DOMElements = {
+            splashScreen: document.getElementById('splash-screen'),
+            appContainer: document.getElementById('app-container'),
+            homeScreen: document.getElementById('home-screen'),
+            emailScreen: document.getElementById('email-screen'),
+            emailAddress: document.getElementById('email-address'),
+            copyBtn: document.getElementById('copy-btn'),
+            inboxList: document.getElementById('inbox-list'),
+            emptyInbox: document.getElementById('empty-inbox'),
+            refreshBtn: document.getElementById('refresh-btn'),
+            changeMailBtn: document.getElementById('change-mail-btn'),
+            deleteMailBtn: document.getElementById('delete-mail-btn'),
+            themeToggleBtn: document.getElementById('theme-toggle-btn'),
+            themeIcon: document.getElementById('theme-icon'),
+            backToInboxBtn: document.getElementById('back-to-inbox-btn'),
+            emailSubjectHeader: document.getElementById('email-subject-header'),
+            emailSubjectDisplay: document.getElementById('email-subject-display'),
+            emailAvatar: document.getElementById('email-avatar'),
+            emailFrom: document.getElementById('email-from'),
+            emailTo: document.getElementById('email-to'),
+            emailTimestamp: document.getElementById('email-timestamp'),
+            emailBody: document.getElementById('email-body'),
+            deleteMessageBtn: document.getElementById('delete-message-btn'),
+            toastContainer: document.getElementById('toast-container'),
+        };
+
+        // --- API FUNCTIONS ---
+        const fetchWithTimeout = async (url, options = {}, timeout = 15000) => { // Increased timeout
+            const controller = new AbortController();
+            const id = setTimeout(() => controller.abort(), timeout);
+            try {
+                const response = await fetch(url, { ...options, signal: controller.signal });
+                clearTimeout(id);
+                return response;
+            } catch (error) {
+                clearTimeout(id);
+                if (error.name === 'AbortError') {
+                    throw new Error('Request timed out');
+                }
+                throw error;
+            }
+        };
+
+        const getNewEmail = async (isDelete = false) => {
+            showSpinner(DOMElements.changeMailBtn, true);
+            showSpinner(DOMElements.deleteMailBtn, true);
+            
+            clearInterval(inboxInterval); // Clear existing interval
+
+            if (isDelete && currentAccount.id && currentAccount.token) {
+                try {
+                    await fetchWithTimeout(`${API_BASE}/accounts/${currentAccount.id}`, {
+                        method: 'DELETE',
+                        headers: { 'Authorization': `Bearer ${currentAccount.token}` },
+                    });
+                    showToast("Previous email deleted.", "info");
+                } catch (e) { 
+                    console.warn("Failed to delete old account:", e);
+                    showToast("Failed to delete previous email. It might have expired or been deleted already.", "warning");
+                }
+            }
+            
+            DOMElements.emailAddress.textContent = 'Generating...';
+            DOMElements.inboxList.innerHTML = '';
+            DOMElements.emptyInbox.style.display = 'block';
+
+            try {
+                const domainResponse = await fetchWithTimeout(`${API_BASE}/domains`);
+                if (!domainResponse.ok) throw new Error('Failed to fetch domains');
+                const domains = await domainResponse.json();
+                if (!domains['hydra:member'] || domains['hydra:member'].length === 0) {
+                    throw new Error('No domains available');
+                }
+                const domain = domains['hydra:member'][0].domain;
+
+                const address = `${Math.random().toString(36).substring(2, 10)}@${domain}`; // Shorter random string
+                const password = Math.random().toString(36).substring(2);
+
+                const accountResponse = await fetchWithTimeout(`${API_BASE}/accounts`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ address, password }),
+                });
+                if (!accountResponse.ok) {
+                    const errorData = await accountResponse.json();
+                    throw new Error(errorData.detail || 'Failed to create account');
+                }
+                const accountData = await accountResponse.json();
+
+                const tokenResponse = await fetchWithTimeout(`${API_BASE}/token`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ address, password }),
+                });
+                if (!tokenResponse.ok) {
+                    const errorData = await tokenResponse.json();
+                    throw new Error(errorData.detail || 'Failed to get token');
+                }
+                const tokenData = await tokenResponse.json();
+                
+                currentAccount = {
+                    id: accountData.id,
+                    address,
+                    password,
+                    token: tokenData.token,
+                };
+
+                DOMElements.emailAddress.textContent = currentAccount.address;
+                showToast("New email generated!", "success");
+                checkInbox();
+                inboxInterval = setInterval(checkInbox, 10000); // 10 seconds auto-refresh
+            } catch (error) {
+                console.error('Error getting new email:', error);
+                showToast(`Error creating email: ${error.message}. Please try again.`, "error");
+                DOMElements.emailAddress.textContent = 'Error!';
+            } finally {
+                showSpinner(DOMElements.changeMailBtn, false);
+                showSpinner(DOMElements.deleteMailBtn, false);
+            }
+        };
+
+        const checkInbox = async () => {
+            if (!currentAccount.token) return;
+            showSpinner(DOMElements.refreshBtn, true);
+
+            try {
+                const response = await fetchWithTimeout(`${API_BASE}/messages`, {
+                    headers: { 'Authorization': `Bearer ${currentAccount.token}` },
+                });
+
+                if (response.status === 401) {
+                    showToast("Session expired. Getting a new email.", "warning");
+                    await getNewEmail();
+                    return;
+                }
+                if (!response.ok) throw new Error('Failed to fetch inbox');
+
+                const messages = await response.json();
+                const currentMessageIds = Array.from(DOMElements.inboxList.children).map(el => el.dataset.id);
+                const newMessages = messages['hydra:member'].filter(msg => !currentMessageIds.includes(msg.id));
+
+                if (newMessages.length > 0) {
+                    showToast(`${newMessages.length} new email(s) arrived!`, "info");
+                }
+                
+                renderInbox(messages['hydra:member']);
+            } catch (error) {
+                console.error('Error checking inbox:', error);
+                if (error.message !== 'Request timed out') { // Don't show toast for timeouts
+                    showToast("Failed to refresh inbox.", "error");
+                }
+            } finally {
+                showSpinner(DOMElements.refreshBtn, false);
+            }
+        };
+
+        const openEmail = async (id) => {
+            DOMElements.homeScreen.classList.add('hidden');
+            DOMElements.emailScreen.classList.remove('hidden');
+            DOMElements.emailScreen.classList.add('flex');
+            
+            // Clear previous content
+            DOMElements.emailSubjectHeader.textContent = 'Loading...';
+            DOMElements.emailSubjectDisplay.textContent = 'Loading...';
+            DOMElements.emailFrom.textContent = '';
+            DOMElements.emailTo.textContent = '';
+            DOMElements.emailTimestamp.textContent = '';
+            DOMElements.emailAvatar.textContent = '';
+            DOMElements.emailBody.srcdoc = '<p class="text-center text-gray-500 dark:text-gray-400 mt-10">Loading email content...</p>';
+            
+            try {
+                const response = await fetchWithTimeout(`${API_BASE}/messages/${id}`, {
+                     headers: { 'Authorization': `Bearer ${currentAccount.token}` },
+                });
+                if (!response.ok) throw new Error('Failed to fetch message');
+                const emailData = await response.json();
+                
+                DOMElements.emailSubjectHeader.textContent = truncateText(emailData.subject, 25);
+                DOMElements.emailSubjectDisplay.textContent = emailData.subject;
+                DOMElements.emailFrom.textContent = emailData.from.name || emailData.from.address;
+                DOMElements.emailTo.textContent = currentAccount.address;
+                DOMElements.emailTimestamp.textContent = formatDate(new Date(emailData.createdAt));
+                DOMElements.emailAvatar.textContent = (emailData.from.name || emailData.from.address)[0].toUpperCase();
+                
+                // Render HTML content safely in a sandboxed iframe
+                const themeClass = document.documentElement.classList.contains('dark') ? 'dark' : '';
+                const iframeDoc = `
+                    <!DOCTYPE html>
+                    <html lang="en" class="${themeClass}">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <style>
+                            body { 
+                                font-family: 'Space Grotesk', sans-serif; 
+                                margin: 0; padding: 1rem; 
+                                background-color: transparent;
+                                color: var(--text-light-1);
+                            }
+                            html.dark body {
+                                color: var(--text-dark-1);
+                            }
+                            img { max-width: 100%; height: auto; }
+                            a { color: var(--primary-light); text-decoration: none; }
+                            html.dark a { color: var(--primary-dark); }
+                            a:hover { text-decoration: underline; }
+                        </style>
+                    </head>
+                    <body>
+                        ${emailData.html[0] || `<p>${escapeHTML(emailData.text)}</p>`}
+                    </body>
+                    </html>
+                `;
+                DOMElements.emailBody.srcdoc = iframeDoc;
+
+            } catch(error) {
+                 console.error('Error opening email:', error);
+                 showToast('Could not load email content.', 'error');
+                 showHomeScreen();
+            }
+        };
+
+        // --- UI & HELPER FUNCTIONS ---
+        
+        const renderInbox = (messages) => {
+            DOMElements.inboxList.innerHTML = '';
+            if (messages.length === 0) {
+                DOMElements.emptyInbox.style.display = 'block';
+                DOMElements.inboxList.style.display = 'none';
+            } else {
+                DOMElements.emptyInbox.style.display = 'none';
+                DOMElements.inboxList.style.display = 'block';
+                messages.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                messages.forEach(msg => {
+                    const emailItem = document.createElement('div');
+                    emailItem.className = 'bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-lg cursor-pointer transition-all duration-200 email-item-hover border border-gray-100 dark:border-gray-700 fade-in';
+                    emailItem.dataset.id = msg.id;
+                    
+                    emailItem.innerHTML = `
+                        <div class="flex items-center justify-between">
+                            <p class="font-semibold text-base truncate pr-2">${escapeHTML(msg.from.name || msg.from.address)}</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 flex-shrink-0">${formatDate(new Date(msg.createdAt))}</p>
+                        </div>
+                        <p class="font-medium text-lg truncate mt-1">${escapeHTML(msg.subject || '(No Subject)')}</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 truncate mt-1">${escapeHTML(msg.intro || '(No preview available)')}</p>
+                    `;
+                    DOMElements.inboxList.appendChild(emailItem);
+                });
+            }
+        };
+
+        const showHomeScreen = () => {
+            DOMElements.emailScreen.classList.add('hidden');
+            DOMElements.emailScreen.classList.remove('flex');
+            DOMElements.homeScreen.classList.remove('hidden');
+        };
+
+        const copyToClipboard = () => {
+            if (!currentAccount.address) {
+                showToast("No email address to copy.", "warning");
+                return;
+            }
+            navigator.clipboard.writeText(currentAccount.address)
+                .then(() => showToast("Email address copied!", "success"))
+                .catch(() => showToast("Failed to copy. Please copy manually.", "error"));
+        };
+
+        const showToast = (message, type = 'info') => {
+            const toast = document.createElement('div');
+            const colors = {
+                info: 'bg-gray-700 text-white',
+                success: 'bg-green-500 text-white',
+                warning: 'bg-yellow-500 text-white',
+                error: 'bg-red-500 text-white',
+            };
+            toast.className = `px-5 py-3 rounded-full shadow-xl text-sm font-semibold toast-in ${colors[type]} pointer-events-auto`;
+            toast.textContent = message;
+            
+            DOMElements.toastContainer.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.remove('toast-in');
+                toast.classList.add('toast-out');
+                toast.addEventListener('animationend', () => toast.remove());
+            }, 3000);
+        };
+        
+        const escapeHTML = (str) => {
+            if (typeof str !== 'string') return '';
+            const p = document.createElement('p');
+            p.textContent = str;
+            return p.innerHTML;
+        };
+
+        const truncateText = (text, maxLength) => {
+            if (typeof text !== 'string') return '';
+            if (text.length > maxLength) {
+                return text.substring(0, maxLength - 3) + '...';
+            }
+            return text;
+        };
+
+        const formatDate = (date) => {
+            const now = new Date();
+            const seconds = Math.floor((now - date) / 1000);
+            
+            if (seconds < 60) return "Just now";
+            if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
+            if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
+            if (seconds < 2592000) return `${Math.floor(seconds / 86400)}d ago`;
+            if (seconds < 31536000) return `${Math.floor(seconds / 2592000)}mo ago`;
+            return `${Math.floor(seconds / 31536000)}y ago`;
+        };
+
+        const showSpinner = (button, show) => {
+            const originalContent = button.dataset.originalContent || button.innerHTML;
+            if (show) {
+                if (!button.querySelector('.spinner')) {
+                    button.dataset.originalContent = button.innerHTML;
+                    button.innerHTML = `<span class="spinner mr-2"></span>${button.textContent}`;
+                    button.disabled = true;
+                    button.classList.add('opacity-75', 'cursor-not-allowed');
+                }
+            } else {
+                if (button.dataset.originalContent) {
+                    button.innerHTML = button.dataset.originalContent;
+                }
+                button.disabled = false;
+                button.classList.remove('opacity-75', 'cursor-not-allowed');
+            }
+        };
+
+        // --- THEME MANAGEMENT ---
+        const applyTheme = (theme) => {
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+                document.body.classList.add('dark');
+                DOMElements.themeIcon.textContent = 'light_mode';
+            } else {
+                document.documentElement.classList.remove('dark');
+                document.body.classList.remove('dark');
+                DOMElements.themeIcon.textContent = 'dark_mode';
+            }
+
+            // Update iframe content if it's already loaded
+            if (DOMElements.emailBody.contentDocument) {
+                const iframeHtml = DOMElements.emailBody.contentDocument.documentElement;
+                if (theme === 'dark') {
+                    iframeHtml.classList.add('dark');
+                } else {
+                    iframeHtml.classList.remove('dark');
+                }
+            }
+        };
+
+        const toggleTheme = () => {
+            const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('theme', newTheme);
+            applyTheme(newTheme);
+        };
+
+        // --- INITIALIZATION ---
+        const initApp = async () => {
+            // Setup theme
+            const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            applyTheme(savedTheme);
+
+            // Splash screen logic
+            setTimeout(() => {
+                DOMElements.splashScreen.style.opacity = '0';
+                DOMElements.appContainer.style.opacity = '1';
+                document.body.style.overflow = 'auto'; // Re-enable body scroll
+                DOMElements.splashScreen.addEventListener('transitionend', () => DOMElements.splashScreen.style.display = 'none');
+            }, 2500); // Increased splash screen duration slightly
+
+            // Initial email generation
+            await getNewEmail();
+
+            // Setup event listeners
+            DOMElements.copyBtn.addEventListener('click', copyToClipboard);
+            DOMElements.changeMailBtn.addEventListener('click', () => getNewEmail(false));
+            DOMElements.deleteMailBtn.addEventListener('click', () => getNewEmail(true));
+            DOMElements.refreshBtn.addEventListener('click', checkInbox);
+            DOMElements.themeToggleBtn.addEventListener('click', toggleTheme);
+            DOMElements.backToInboxBtn.addEventListener('click', showHomeScreen);
+            DOMElements.inboxList.addEventListener('click', (e) => {
+                const emailItem = e.target.closest('[data-id]');
+                if (emailItem) {
+                    openEmail(emailItem.dataset.id);
+                }
+            });
+            // "Delete Message" is simulated locally by just going back to the inbox.
+            DOMElements.deleteMessageBtn.addEventListener('click', () => {
+                showToast("Message hidden locally.", "info");
+                showHomeScreen();
+            });
+        };
+
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
