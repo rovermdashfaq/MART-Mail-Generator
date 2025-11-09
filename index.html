@@ -8,34 +8,35 @@
     <!-- Google Fonts: Space Grotesk & Material Symbols Outlined -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
 
     <style>
         :root {
-            --primary-light: #6366f1;
-            --secondary-light: #a855f7;
-            --bg-light-1: #f0f9ff;
-            --bg-light-2: #e0f2fe;
-            --text-light-1: #1f2937;
-            --text-light-2: #4b5563;
+            --primary-light: #5a2e9b; /* Deep Violet */
+            --secondary-light: #9c27b0; /* Purple */
+            --bg-light-1: #f3e5f5; /* Light Purple Background */
+            --bg-light-2: #e1bee7; /* Slightly darker */
+            --text-light-1: #311b92; /* Dark Violet Text */
+            --text-light-2: #6a1b9a; /* Medium Purple Text */
             --card-bg-light: #ffffff;
-            --border-light: #e5e7eb;
-            --shadow-light: rgba(0, 0, 0, 0.1);
-            --success-light: #22c55e;
-            --error-light: #ef4444;
+            --border-light: #e0b0ff; /* Light Violet Border */
+            --shadow-light: rgba(0, 0, 0, 0.15);
+            --success-light: #4caf50;
+            --error-light: #f44336;
 
-            --primary-dark: #818cf8;
-            --secondary-dark: #c084fc;
-            --bg-dark-1: #0f172a;
-            --bg-dark-2: #1e293b;
-            --text-dark-1: #e2e8f0;
-            --text-dark-2: #94a3b8;
-            --card-bg-dark: #1f2937;
-            --border-dark: #374151;
-            --shadow-dark: rgba(0, 0, 0, 0.5);
-            --success-dark: #22c55e;
-            --error-dark: #ef4444;
+            --primary-dark: #b39ddb; /* Lighter Violet */
+            --secondary-dark: #ce93d8; /* Lighter Purple */
+            --bg-dark-1: #210e30; /* Darker Violet Background */
+            --bg-dark-2: #3a1c4e; /* Medium Dark Violet */
+            --text-dark-1: #e0e0e0;
+            --text-dark-2: #bb86fc; /* Light Purple Text */
+            --card-bg-dark: #2a113a; /* Dark Card Background */
+            --border-dark: #5e35b1; /* Dark Violet Border */
+            --shadow-dark: rgba(0, 0, 0, 0.6);
+            --success-dark: #66bb6a;
+            --error-dark: #ef5350;
         }
 
         /* Basic Reset & Box Sizing */
@@ -183,18 +184,18 @@
         }
         .btn-primary:hover {
             background-position: right center;
-            box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+            box-shadow: 0 0 20px rgba(90, 46, 155, 0.5); /* Primary-light shadow */
         }
 
         /* Danger button */
         .btn-danger {
-            background-image: linear-gradient(to right, var(--error-light) 0%, #dc2626 51%, var(--error-light) 100%);
+            background-image: linear-gradient(to right, var(--error-light) 0%, #d32f2f 51%, var(--error-light) 100%);
             color: white;
             background-size: 200% auto;
         }
         .btn-danger:hover {
             background-position: right center;
-            box-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+            box-shadow: 0 0 20px rgba(244, 67, 54, 0.5); /* Error-light shadow */
         }
 
         /* Email Item hover effect */
@@ -214,7 +215,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, #f0f9ff, #e0f2fe, #f0f9ff);
+            background: linear-gradient(45deg, #f3e5f5, #e1bee7, #f3e5f5); /* Light purple hues */
             background-size: 400% 400%;
             animation: background-gradient 15s ease infinite;
             z-index: -1;
@@ -222,7 +223,7 @@
         }
 
         body.dark::before {
-            background: linear-gradient(45deg, #1f2937, #111827, #1f2937);
+            background: linear-gradient(45deg, #210e30, #3a1c4e, #210e30); /* Dark violet hues */
             opacity: 0.5;
         }
 
@@ -337,23 +338,23 @@
         .border-gray-100 { border-color: #f3f4f6; }
         .border-gray-200 { border-color: #e5e7eb; }
         .border-gray-700 { border-color: #374151; }
-        .border-green-400 { border-color: #4ade80; }
+        .border-green-400 { border-color: #81c784; } /* Light green for success */
         .bg-gray-50 { background-color: #f9fafb; }
         .bg-white { background-color: white; }
         .bg-gradient-to-r { background-image: linear-gradient(to right, var(--tw-gradient-stops)); }
-        .from-blue-500 { --tw-gradient-from: #3b82f6; --tw-gradient-to: rgba(59, 130, 246, 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
-        .via-purple-600 { --tw-gradient-via: #9333ea; }
-        .to-pink-500 { --tw-gradient-to: #ec4899; }
-        .from-indigo-500 { --tw-gradient-from: #6366f1; --tw-gradient-to: rgba(99, 102, 241, 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
-        .to-purple-500 { --tw-gradient-to: #a855f7; }
-        .from-green-500 { --tw-gradient-from: #22c55e; --tw-gradient-to: rgba(34, 197, 94, 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
-        .to-emerald-600 { --tw-gradient-to: #059669; }
+        .from-blue-500 { --tw-gradient-from: #5a2e9b; --tw-gradient-to: rgba(90, 46, 155, 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+        .via-purple-600 { --tw-gradient-via: #9c27b0; }
+        .to-pink-500 { --tw-gradient-to: #e91e63; } /* Pink accent */
+        .from-indigo-500 { --tw-gradient-from: #673ab7; --tw-gradient-to: rgba(103, 58, 183, 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+        .to-purple-500 { --tw-gradient-to: #9c27b0; }
+        .from-green-500 { --tw-gradient-from: #4caf50; --tw-gradient-to: rgba(76, 175, 80, 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+        .to-emerald-600 { --tw-gradient-to: #388e3c; }
         .bg-gradient-to-br { background-image: linear-gradient(to bottom right, var(--tw-gradient-stops)); }
-        .text-gray-400 { color: #9ca3af; }
-        .text-gray-500 { color: #6b7280; }
-        .text-gray-800 { color: #1f2937; }
-        .text-orange-500 { color: #f97316; }
-        .hover\:text-orange-600:hover { color: #ea580c; }
+        .text-gray-400 { color: #9c9c9c; }
+        .text-gray-500 { color: #757575; }
+        .text-gray-800 { color: #212121; }
+        .text-orange-500 { color: #ff9800; }
+        .hover\:text-orange-600:hover { color: #fb8c00; }
         .transition-colors { transition-property: color, background-color, border-color, text-decoration-color, fill, stroke; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
         .transition-opacity { transition-property: opacity; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
         .transition-all { transition-property: all; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
@@ -367,22 +368,42 @@
         .hover\:rotate-90:hover { --tw-rotate: 90deg; }
 
         /* Dark mode specific styles */
-        body.dark .bg-gray-900 { background-color: #0f172a; }
-        body.dark .bg-gray-900\/80 { background-color: rgba(15, 23, 42, 0.8); }
-        body.dark .bg-gray-800 { background-color: #1f2937; }
-        body.dark .bg-gray-700 { background-color: #374151; }
-        body.dark .text-gray-200 { color: #e5e7eb; }
-        body.dark .text-gray-400 { color: #9ca3af; }
-        body.dark .text-gray-500 { color: #6b7280; }
-        body.dark .from-blue-400 { --tw-gradient-from: #60a5fa; --tw-gradient-to: rgba(96, 165, 250, 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
-        body.dark .via-purple-500 { --tw-gradient-via: #a855f7; }
-        body.dark .to-pink-400 { --tw-gradient-to: #f472b6; }
-        body.dark .from-indigo-400 { --tw-gradient-from: #818cf8; --tw-gradient-to: rgba(129, 140, 248, 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
-        body.dark .to-purple-400 { --tw-gradient-to: #c084fc; }
-        body.dark .from-green-600 { --tw-gradient-from: #16a34a; --tw-gradient-to: rgba(22, 163, 74, 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
-        body.dark .to-emerald-700 { --tw-gradient-to: #047857; }
-        body.dark .border-green-600 { border-color: #059669; }
-        body.dark .hover\:bg-gray-700:hover { background-color: #374151; }
+        body.dark .bg-gray-900 { background-color: #210e30; }
+        body.dark .bg-gray-900\/80 { background-color: rgba(33, 14, 48, 0.8); }
+        body.dark .bg-gray-800 { background-color: #2a113a; }
+        body.dark .bg-gray-700 { background-color: #3a1c4e; }
+        body.dark .text-gray-200 { color: #e0e0e0; }
+        body.dark .text-gray-400 { color: #bb86fc; }
+        body.dark .text-gray-500 { color: #9c9c9c; }
+        body.dark .from-blue-400 { --tw-gradient-from: #b39ddb; --tw-gradient-to: rgba(179, 157, 219, 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+        body.dark .via-purple-500 { --tw-gradient-via: #ce93d8; }
+        body.dark .to-pink-400 { --tw-gradient-to: #f06292; }
+        body.dark .from-indigo-400 { --tw-gradient-from: #9575cd; --tw-gradient-to: rgba(149, 117, 205, 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+        body.dark .to-purple-400 { --tw-gradient-to: #ce93d8; }
+        body.dark .from-green-600 { --tw-gradient-from: #43a047; --tw-gradient-to: rgba(67, 160, 71, 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+        body.dark .to-emerald-700 { --tw-gradient-to: #2e7d32; }
+        body.dark .border-green-600 { border-color: #66bb6a; }
+        body.dark .hover\:bg-gray-700:hover { background-color: #3a1c4e; }
+        body.dark .bg-gray-50\/80 { background-color: rgba(33, 14, 48, 0.8); } /* Darker backdrop for header */
+        body.dark .border-gray-200\/50 { border-color: rgba(94, 53, 177, 0.5); }
+        body.dark .border-gray-700\/50 { border-color: rgba(179, 157, 219, 0.5); }
+        body.dark .bg-white\/60 { background-color: rgba(42, 17, 58, 0.6); }
+        body.dark .bg-gray-800\/60 { background-color: rgba(42, 17, 58, 0.6); }
+        body.dark .bg-emerald-900\/30 { background-color: rgba(46, 125, 50, 0.3); }
+        body.dark .bg-blue-900\/30 { background-color: rgba(48, 79, 254, 0.3); }
+        body.dark .bg-orange-900\/30 { background-color: rgba(255, 152, 0, 0.3); }
+        body.dark .from-blue-900\/20 { --tw-gradient-from: rgba(48, 79, 254, 0.2); }
+        body.dark .to-cyan-900\/20 { --tw-gradient-to: rgba(0, 188, 212, 0.2); }
+        body.dark .border-blue-700\/30 { border-color: rgba(48, 79, 254, 0.3); }
+        body.dark .from-emerald-900\/20 { --tw-gradient-from: rgba(46, 125, 50, 0.2); }
+        body.dark .to-green-900\/20 { --tw-gradient-to: rgba(76, 175, 80, 0.2); }
+        body.dark .border-emerald-700\/30 { border-color: rgba(46, 125, 50, 0.3); }
+        body.dark .from-red-900\/20 { --tw-gradient-from: rgba(244, 67, 54, 0.2); }
+        body.dark .to-orange-900\/20 { --tw-gradient-to: rgba(255, 152, 0, 0.2); }
+        body.dark .border-red-700\/30 { border-color: rgba(244, 67, 54, 0.3); }
+        body.dark .bg-gray-700\/50 { background-color: rgba(58, 28, 78, 0.5); }
+        body.dark .border-gray-600\/50 { border-color: rgba(139, 92, 246, 0.5); }
+
 
         /* Keyframe for bounce-slow */
         @keyframes bounce-slow {
@@ -505,10 +526,268 @@
                 </div>
             </main>
             
-            <footer class="p-4 text-center text-xs text-gray-500 dark:text-gray-400 border-t border-gray-200 dark:border-gray-700 bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-md shadow-inner">
-                &copy; 2025 MART Mail-Generator. Crafted with ❤️ by <a href="https://rovermdashfaq.github.io/portfolio/" target="_blank" class="text-orange-500 hover:text-orange-600 transition-colors font-medium">Md. Ashfaqur Rahman Tanim</a>.
-            </footer>
+            
+<footer class="p-4 text-center border-t border-gray-300/50 dark:border-gray-600/50 bg-green-500 dark:bg-green-600 backdrop-blur-xl shadow-2xl">
+    <div class="max-w-md mx-auto">
+        <!-- Developer Info with Premium Design -->
+        <div class="flex items-center justify-between mb-4 p-3 bg-white/60 dark:bg-gray-800/60 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg">
+            <div class="flex items-center gap-3">
+                <div class="relative">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-orange-400 to-red-500 rounded-full blur-sm opacity-75 animate-pulse"></div>
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhCDeXufBywGlGcvjFv5OaZNnGnIFboYZgUyo9NPcDt7SH5dWhG6Kv7wOtGMm5uBfA-2RCI41U0IWscQhEPQ9_6mHg192N68FaFDDE4HIfb8zXw6Ubafj329ToS6mYTqHo8Wu8aRidwjczDQZ4Id_t7K-E32b8ZthoHTIH3r86pWwfOmFdNvgcQOOeHBDc/s2000/1000038033.png" 
+                         alt="Ashfaqur Rahman Tanim"
+                         class="relative w-8 h-8 rounded-full border-2 border-white dark:border-gray-800 object-cover shadow-lg"
+                         style="width: 32px; height: 32px; max-width: 32px; max-height: 32px;">
+                    <div class="absolute -bottom-1 -right-1 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white dark:border-gray-800 shadow-md"></div>
+                </div>
+                <div class="text-left">
+                    <h3 class="text-sm font-bold text-gray-800 dark:text-gray-200 bg-gradient-to-r from-gray-800 to-gray-600 dark:from-gray-200 dark:to-gray-400 bg-clip-text text-transparent">Ashfaqur Rahman Tanim</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 font-medium">Full Stack Developer</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-2">
+                <button onclick="openPrivacyPopup()" class="p-2 bg-white/80 dark:bg-gray-700/80 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-900/30 border border-gray-200/50 dark:border-gray-600/50 hover:border-blue-300 dark:hover:border-blue-600 shadow-sm hover:shadow-md transition-all duration-300 group">
+                    <span class="material-symbols-outlined text-blue-600 dark:text-blue-400 text-lg group-hover:scale-110 transition-transform">shield</span>
+                </button>
+                <button onclick="openTermsPopup()" class="p-2 bg-white/80 dark:bg-gray-700/80 rounded-xl hover:bg-emerald-50 dark:hover:bg-emerald-900/30 border border-gray-200/50 dark:border-gray-600/50 hover:border-emerald-300 dark:hover:border-emerald-600 shadow-sm hover:shadow-md transition-all duration-300 group">
+                    <span class="material-symbols-outlined text-emerald-600 dark:text-emerald-400 text-lg group-hover:scale-110 transition-transform">gavel</span>
+                </button>
+                <a href="https://rovermdashfaq.github.io/portfolio/" target="_blank" class="p-2 bg-white/80 dark:bg-gray-700/80 rounded-xl hover:bg-orange-50 dark:hover:bg-orange-900/30 border border-gray-200/50 dark:border-gray-600/50 hover:border-orange-300 dark:hover:border-orange-600 shadow-sm hover:shadow-md transition-all duration-300 group">
+                    <span class="material-symbols-outlined text-orange-600 dark:text-orange-400 text-lg group-hover:scale-110 transition-transform">work</span>
+                </a>
+            </div>
         </div>
+
+        <!-- Premium Features Badges -->
+        <div class="bg-green-600 p-2 rounded-xl mb-4 shadow-lg border border-green-400/20">
+            <div class="flex gap-1 justify-center items-center">
+                <div class="bg-gradient-to-br from-amber-500 to-orange-500 text-green px-2 py-1 rounded-lg shadow-md transform hover:scale-105 transition-all duration-300 cursor-default border border-amber-300/30 backdrop-blur-sm flex-1 min-w-0">
+                    <div class="flex items-center justify-center gap-1">
+                        <span class="material-symbols-outlined text-xs">lock</span>
+                        <span class="text-xs font-bold truncate">NO LOGIN</span>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-br from-purple-600 to-violet-600 text-blue px-2 py-1 rounded-lg shadow-md transform hover:scale-105 transition-all duration-300 cursor-default border border-purple-300/30 backdrop-blur-sm flex-1 min-w-0">
+                    <div class="flex items-center justify-center gap-1">
+                        <span class="material-symbols-outlined text-xs">security</span>
+                        <span class="text-xs font-bold truncate">SECURE</span>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-br from-cyan-600 to-blue-600 text-green px-2 py-1 rounded-lg shadow-md transform hover:scale-105 transition-all duration-300 cursor-default border border-cyan-300/30 backdrop-blur-sm flex-1 min-w-0">
+                    <div class="flex items-center justify-center gap-1">
+                        <span class="material-symbols-outlined text-xs">auto_awesome</span>
+                        <span class="text-xs font-bold truncate">PREMIUM</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Luxury Privacy Policy Popup -->
+<div id="privacy-popup" class="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 hidden">
+    <div class="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-3xl p-8 mx-4 max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-2xl border border-gray-200/50 dark:border-gray-700/50">
+        <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-3">
+                <div class="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-2xl">
+                    <span class="material-symbols-outlined text-blue-600 dark:text-blue-400 text-2xl">privacy_tip</span>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">Privacy Excellence</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Your data deserves the best protection</p>
+                </div>
+            </div>
+            <button onclick="closePrivacyPopup()" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-xl transition-colors">
+                <span class="material-symbols-outlined text-gray-500 dark:text-gray-400">close</span>
+            </button>
+        </div>
+        
+        <div class="space-y-4">
+            <div class="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 p-6 rounded-2xl border border-blue-200/50 dark:border-blue-700/30">
+                <h4 class="font-bold text-blue-800 dark:text-blue-300 text-lg mb-3">🔒 Absolute Privacy Guarantee</h4>
+                <p class="text-gray-700 dark:text-gray-300 mb-4">We built MART Mail-Generator with uncompromising privacy standards that exceed industry norms.</p>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-green-500 text-sm">verified</span>
+                        <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Zero Data Collection</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-green-500 text-sm">verified</span>
+                        <span class="text-sm font-medium text-gray-700 dark:text-gray-300">No Tracking</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-green-500 text-sm">verified</span>
+                        <span class="text-sm font-medium text-gray-700 dark:text-gray-300">End-to-End Encrypted</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-green-500 text-sm">verified</span>
+                        <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Auto Data Deletion</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800/50 p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/30">
+                <h4 class="font-bold text-gray-800 dark:text-gray-200 text-lg mb-3">🏆 Premium Security Features</h4>
+                <ul class="space-y-2 text-gray-600 dark:text-gray-400">
+                    <li class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>
+                        <span>Military-grade temporary email generation</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>
+                        <span>No server-side email storage or logging</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>
+                        <span>Complete anonymity with no user profiling</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>
+                        <span>Enterprise-level privacy compliance</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <button onclick="closePrivacyPopup()" class="w-full mt-6 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+            Understand & Continue
+        </button>
+    </div>
+</div>
+
+<!-- Luxury Terms of Service Popup -->
+<div id="terms-popup" class="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 hidden">
+    <div class="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-3xl p-8 mx-4 max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-2xl border border-gray-200/50 dark:border-gray-700/50">
+        <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-3">
+                <div class="p-3 bg-emerald-100 dark:bg-emerald-900/30 rounded-2xl">
+                    <span class="material-symbols-outlined text-emerald-600 dark:text-emerald-400 text-2xl">gavel</span>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-green-600 dark:from-emerald-400 dark:to-green-400 bg-clip-text text-transparent">Terms of Excellence</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Premium service, premium standards</p>
+                </div>
+            </div>
+            <button onclick="closeTermsPopup()" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-xl transition-colors">
+                <span class="material-symbols-outlined text-gray-500 dark:text-gray-400">close</span>
+            </button>
+        </div>
+        
+        <div class="space-y-4">
+            <div class="bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 p-6 rounded-2xl border border-emerald-200/50 dark:border-emerald-700/30">
+                <h4 class="font-bold text-emerald-800 dark:text-emerald-300 text-lg mb-3">✅ Approved Usage</h4>
+                <p class="text-gray-700 dark:text-gray-300 mb-4">This premium service is designed for legitimate privacy needs and professional use cases.</p>
+                
+                <div class="grid grid-cols-2 gap-4 text-sm">
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-blue-500 text-sm">check</span>
+                        <span class="font-medium text-gray-700 dark:text-gray-300">Business Communication</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-blue-500 text-sm">check</span>
+                        <span class="font-medium text-gray-700 dark:text-gray-300">Product Testing</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-blue-500 text-sm">check</span>
+                        <span class="font-medium text-gray-700 dark:text-gray-300">Newsletter Signups</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-blue-500 text-sm">check</span>
+                        <span class="font-medium text-gray-700 dark:text-gray-300">Account Verification</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 p-6 rounded-2xl border border-red-200/50 dark:border-red-700/30">
+                <h4 class="font-bold text-red-800 dark:text-red-300 text-lg mb-3">🚫 Strictly Prohibited</h4>
+                <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                    <li class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-red-500 text-sm">block</span>
+                        <span>Illegal activities or fraudulent behavior</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-red-500 text-sm">block</span>
+                        <span>Spamming, phishing, or harassment</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-red-500 text-sm">block</span>
+                        <span>Commercial abuse or bulk messaging</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-red-500 text-sm">block</span>
+                        <span>Any activity violating international laws</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800/50 p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/30">
+                <h4 class="font-bold text-gray-800 dark:text-gray-200 text-lg mb-3">⚡ Service Excellence</h4>
+                <div class="grid grid-cols-2 gap-4 text-sm">
+                    <div class="text-center p-3 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
+                        <span class="material-symbols-outlined text-purple-500 text-xl">auto_awesome</span>
+                        <p class="font-semibold text-gray-700 dark:text-gray-300 mt-1">Premium Quality</p>
+                        <p class="text-gray-500 dark:text-gray-400 text-xs">Enterprise-grade service</p>
+                    </div>
+                    <div class="text-center p-3 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
+                        <span class="material-symbols-outlined text-cyan-500 text-xl">security</span>
+                        <p class="font-semibold text-gray-700 dark:text-gray-300 mt-1">Maximum Security</p>
+                        <p class="text-gray-500 dark:text-gray-400 text-xs">Military-level protection</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <button onclick="closeTermsPopup()" class="w-full mt-6 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+            Accept Premium Terms
+        </button>
+    </div>
+</div>
+
+<script>
+// Popup Functions
+function openPrivacyPopup() {
+    document.getElementById('privacy-popup').classList.remove('hidden');
+}
+
+function closePrivacyPopup() {
+    document.getElementById('privacy-popup').classList.add('hidden');
+}
+
+function openTermsPopup() {
+    document.getElementById('terms-popup').classList.remove('hidden');
+}
+
+function closeTermsPopup() {
+    document.getElementById('terms-popup').classList.add('hidden');
+}
+
+// Close popups when clicking outside
+document.addEventListener('click', function(event) {
+    const privacyPopup = document.getElementById('privacy-popup');
+    const termsPopup = document.getElementById('terms-popup');
+    
+    if (event.target === privacyPopup) {
+        closePrivacyPopup();
+    }
+    if (event.target === termsPopup) {
+        closeTermsPopup();
+    }
+});
+
+// Close popups with Escape key
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closePrivacyPopup();
+        closeTermsPopup();
+    }
+});
+</script>
+            
+            
 
         <!-- Email Details Screen -->
         <div id="email-screen" class="hidden flex-col h-full">
