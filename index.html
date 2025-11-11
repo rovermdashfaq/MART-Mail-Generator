@@ -166,6 +166,9 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transform: translateZ(0); /* Force GPU acceleration */
+            cursor: pointer;
+            border: none;
+            outline: none;
         }
         .btn:hover {
             transform: translateY(-2px) scale(1.02);
@@ -196,6 +199,17 @@
         .btn-danger:hover {
             background-position: right center;
             box-shadow: 0 0 20px rgba(244, 67, 54, 0.5); /* Error-light shadow */
+        }
+
+        /* Secondary button */
+        .btn-secondary {
+            background-image: linear-gradient(to right, #6b7280 0%, #9ca3af 51%, #6b7280 100%);
+            color: white;
+            background-size: 200% auto;
+        }
+        .btn-secondary:hover {
+            background-position: right center;
+            box-shadow: 0 0 20px rgba(107, 114, 128, 0.5);
         }
 
         /* Email Item hover effect */
@@ -265,7 +279,7 @@
         .rounded-full { border-radius: 9999px; }
         .rounded-xl { border-radius: 0.75rem; }
         .rounded-2xl { border-radius: 1rem; }
-        .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+        .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05); }
         .shadow-xl { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); }
         .shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1); }
         .shadow-inner { box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06); }
@@ -404,7 +418,6 @@
         body.dark .bg-gray-700\/50 { background-color: rgba(58, 28, 78, 0.5); }
         body.dark .border-gray-600\/50 { border-color: rgba(139, 92, 246, 0.5); }
 
-
         /* Keyframe for bounce-slow */
         @keyframes bounce-slow {
             0%, 100% { transform: translateY(0); }
@@ -441,6 +454,563 @@
             .h-\[60vh\] { height: 70vh; } /* More space for email content on small screens */
         }
 
+        /* New styles for improved UI */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        body.dark .stat-card {
+            background: var(--card-bg-dark);
+            border-color: rgba(255,255,255,0.05);
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+        
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-light-2);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        body.dark .stat-label {
+            color: var(--text-dark-2);
+        }
+        
+        .email-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .email-actions button {
+            flex: 1;
+        }
+        
+        .email-preview {
+            max-height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .email-preview::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(to bottom, transparent, var(--card-bg-light));
+        }
+        
+        body.dark .email-preview::after {
+            background: linear-gradient(to bottom, transparent, var(--card-bg-dark));
+        }
+        
+        .email-expanded .email-preview {
+            max-height: none;
+        }
+        
+        .email-expanded .email-preview::after {
+            display: none;
+        }
+        
+        .expand-btn {
+            background: none;
+            border: none;
+            color: var(--primary-light);
+            cursor: pointer;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            margin-top: 0.5rem;
+        }
+        
+        body.dark .expand-btn {
+            color: var(--primary-dark);
+        }
+        
+        .connection-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+        
+        .connection-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--success-light);
+        }
+        
+        body.dark .connection-dot {
+            background-color: var(--success-dark);
+        }
+        
+        .connection-dot.offline {
+            background-color: var(--error-light);
+        }
+        
+        body.dark .connection-dot.offline {
+            background-color: var(--error-dark);
+        }
+        
+        .connection-dot.connecting {
+            background-color: #ff9800;
+            animation: pulse 1.5s infinite;
+        }
+        
+        .settings-panel {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100%;
+            background: var(--card-bg-light);
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            transition: right 0.3s ease;
+            z-index: 100;
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+        
+        body.dark .settings-panel {
+            background: var(--card-bg-dark);
+            box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+        }
+        
+        .settings-panel.open {
+            right: 0;
+        }
+        
+        .settings-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 99;
+            display: none;
+        }
+        
+        .settings-overlay.active {
+            display: block;
+        }
+        
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        body.dark .settings-header {
+            border-bottom-color: rgba(255,255,255,0.1);
+        }
+        
+        .settings-option {
+            margin-bottom: 1.5rem;
+        }
+        
+        .settings-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .settings-toggle {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        
+        .settings-toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .settings-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .settings-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .settings-slider {
+            background-color: var(--primary-light);
+        }
+        
+        body.dark input:checked + .settings-slider {
+            background-color: var(--primary-dark);
+        }
+        
+        input:checked + .settings-slider:before {
+            transform: translateX(26px);
+        }
+        
+        .settings-select {
+            width: 100%;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(0,0,0,0.1);
+            background: var(--card-bg-light);
+            color: var(--text-light-1);
+        }
+        
+        body.dark .settings-select {
+            border-color: rgba(255,255,255,0.1);
+            background: var(--card-bg-dark);
+            color: var(--text-dark-1);
+        }
+        
+        .email-tag {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .email-tag.primary {
+            background: rgba(90, 46, 155, 0.1);
+            color: var(--primary-light);
+        }
+        
+        body.dark .email-tag.primary {
+            background: rgba(179, 157, 219, 0.2);
+            color: var(--primary-dark);
+        }
+        
+        .email-tag.secondary {
+            background: rgba(156, 39, 176, 0.1);
+            color: var(--secondary-light);
+        }
+        
+        body.dark .email-tag.secondary {
+            background: rgba(206, 147, 216, 0.2);
+            color: var(--secondary-dark);
+        }
+
+        /* Privacy and Terms Popup Styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 1rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .popup-container {
+            background: var(--card-bg-light);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--border-light);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        body.dark .popup-container {
+            background: var(--card-bg-dark);
+            border-color: var(--border-dark);
+        }
+
+        .popup-overlay.active .popup-container {
+            transform: scale(1);
+        }
+
+        .popup-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        body.dark .popup-header {
+            border-bottom-color: var(--border-dark);
+        }
+
+        .popup-title {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-light), var(--secondary-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        body.dark .popup-title {
+            background: linear-gradient(135deg, var(--primary-dark), var(--secondary-dark));
+        }
+
+        .popup-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            color: var(--text-light-1);
+            transition: all 0.3s ease;
+        }
+
+        body.dark .popup-close {
+            color: var(--text-dark-1);
+        }
+
+        .popup-close:hover {
+            background: rgba(0, 0, 0, 0.1);
+            transform: rotate(90deg);
+        }
+
+        body.dark .popup-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .popup-content {
+            line-height: 1.7;
+        }
+
+        .popup-section {
+            margin-bottom: 2rem;
+        }
+
+        .popup-section h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        body.dark .popup-section h3 {
+            color: var(--primary-dark);
+        }
+
+        .popup-section p {
+            margin-bottom: 1rem;
+            color: var(--text-light-1);
+        }
+
+        body.dark .popup-section p {
+            color: var(--text-dark-1);
+        }
+
+        .popup-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .popup-list li {
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-light-1);
+        }
+
+        body.dark .popup-list li {
+            color: var(--text-dark-1);
+        }
+
+        .popup-list li:before {
+            content: "•";
+            color: var(--primary-light);
+            font-weight: bold;
+            position: absolute;
+            left: 0.5rem;
+        }
+
+        body.dark .popup-list li:before {
+            color: var(--primary-dark);
+        }
+
+        .privacy-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-light), var(--secondary-light));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin: 0.25rem;
+        }
+
+        body.dark .privacy-badge {
+            background: linear-gradient(135deg, var(--primary-dark), var(--secondary-dark));
+        }
+
+        .highlight-box {
+            background: rgba(90, 46, 155, 0.05);
+            border-left: 4px solid var(--primary-light);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin: 1.5rem 0;
+        }
+
+        body.dark .highlight-box {
+            background: rgba(179, 157, 219, 0.1);
+            border-left-color: var(--primary-dark);
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        body.dark .contact-info {
+            background: linear-gradient(135deg, #2a113a, #3a1c4e);
+        }
+
+        .contact-info h4 {
+            color: var(--primary-light);
+            margin-bottom: 1rem;
+        }
+
+        body.dark .contact-info h4 {
+            color: var(--primary-dark);
+        }
+
+        .contact-email {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--secondary-light);
+        }
+
+        body.dark .contact-email {
+            color: var(--secondary-dark);
+        }
+
+        .popup-footer {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--border-light);
+            text-align: center;
+        }
+
+        body.dark .popup-footer {
+            border-top-color: var(--border-dark);
+        }
+
+        .last-updated {
+            font-size: 0.875rem;
+            color: var(--text-light-2);
+            margin-bottom: 1rem;
+        }
+
+        body.dark .last-updated {
+            color: var(--text-dark-2);
+        }
+
+        .accept-button {
+            background: linear-gradient(135deg, var(--primary-light), var(--secondary-light));
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(90, 46, 155, 0.3);
+        }
+
+        body.dark .accept-button {
+            background: linear-gradient(135deg, var(--primary-dark), var(--secondary-dark));
+            box-shadow: 0 4px 15px rgba(179, 157, 219, 0.3);
+        }
+
+        .accept-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(90, 46, 155, 0.4);
+        }
+
+        body.dark .accept-button:hover {
+            box-shadow: 0 8px 25px rgba(179, 157, 219, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .popup-container {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+
+            .popup-title {
+                font-size: 1.5rem;
+            }
+        }
+
     </style>
 </head>
 <body class="antialiased">
@@ -463,7 +1033,9 @@
         <!-- Home Screen -->
         <div id="home-screen" class="flex flex-col h-full">
             <header class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 sticky top-0 bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-md z-20 shadow-sm">
-                <div class="w-10"></div> <!-- Spacer -->
+                <button id="settings-btn" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors transform hover:scale-110 active:scale-95">
+                    <span class="material-symbols-outlined">settings</span>
+                </button>
                 <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 dark:from-blue-400 dark:to-purple-500 text-transparent bg-clip-text header-gradient-animation">MART Mail-Generator</h1>
                 <button id="theme-toggle-btn" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors transform hover:scale-110 active:scale-95">
                     <span id="theme-icon" class="material-symbols-outlined">light_mode</span>
@@ -471,6 +1043,18 @@
             </header>
 
             <main class="p-4 space-y-5 flex-grow overflow-y-auto no-scrollbar relative">
+                <!-- Stats Cards -->
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-value" id="email-count">0</div>
+                        <div class="stat-label">Emails</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="session-time">0m</div>
+                        <div class="stat-label">Session</div>
+                    </div>
+                </div>
+
                 <!-- Action Buttons -->
                 <div class="grid grid-cols-2 gap-4">
                     <button id="change-mail-btn" class="btn btn-primary">
@@ -492,6 +1076,10 @@
                             <span class="material-symbols-outlined text-xl">content_copy</span>
                         </button>
                     </div>
+                    <div class="connection-status">
+                        <div id="connection-dot" class="connection-dot"></div>
+                        <span id="connection-text">Connected</span>
+                    </div>
                 </div>
                 
                 <!-- Email Status Card -->
@@ -509,9 +1097,14 @@
                 <div>
                     <div class="flex items-center justify-between mb-3">
                         <h2 class="text-xl font-bold">Inbox</h2>
-                        <button id="refresh-btn" class="p-2.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors transform hover:rotate-90 active:scale-95">
-                            <span class="material-symbols-outlined">refresh</span>
-                        </button>
+                        <div class="flex gap-2">
+                            <button id="filter-btn" class="p-2.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors transform hover:scale-110 active:scale-95">
+                                <span class="material-symbols-outlined">filter_list</span>
+                            </button>
+                            <button id="refresh-btn" class="p-2.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors transform hover:rotate-90 active:scale-95">
+                                <span class="material-symbols-outlined">refresh</span>
+                            </button>
+                        </div>
                     </div>
 
                     <div id="empty-inbox" class="text-center py-12 px-4 bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700">
@@ -526,268 +1119,125 @@
                 </div>
             </main>
             
-            
-<footer class="p-4 text-center border-t border-gray-300/50 dark:border-gray-600/50 bg-green-500 dark:bg-green-600 backdrop-blur-xl shadow-2xl">
-    <div class="max-w-md mx-auto">
-        <!-- Developer Info with Premium Design -->
-        <div class="flex items-center justify-between mb-4 p-3 bg-white/60 dark:bg-gray-800/60 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg">
-            <div class="flex items-center gap-3">
-                <div class="relative">
-                    <div class="absolute -inset-1 bg-gradient-to-r from-orange-400 to-red-500 rounded-full blur-sm opacity-75 animate-pulse"></div>
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhCDeXufBywGlGcvjFv5OaZNnGnIFboYZgUyo9NPcDt7SH5dWhG6Kv7wOtGMm5uBfA-2RCI41U0IWscQhEPQ9_6mHg192N68FaFDDE4HIfb8zXw6Ubafj329ToS6mYTqHo8Wu8aRidwjczDQZ4Id_t7K-E32b8ZthoHTIH3r86pWwfOmFdNvgcQOOeHBDc/s2000/1000038033.png" 
-                         alt="Ashfaqur Rahman Tanim"
-                         class="relative w-8 h-8 rounded-full border-2 border-white dark:border-gray-800 object-cover shadow-lg"
-                         style="width: 32px; height: 32px; max-width: 32px; max-height: 32px;">
-                    <div class="absolute -bottom-1 -right-1 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white dark:border-gray-800 shadow-md"></div>
+            <footer class="p-4 text-center border-t border-gray-300/50 dark:border-gray-600/50 bg-green-500 dark:bg-green-600 backdrop-blur-xl shadow-2xl">
+                <div class="max-w-md mx-auto">
+                    <!-- Developer Info with Premium Design -->
+                    <div class="flex items-center justify-between mb-4 p-3 bg-white/60 dark:bg-gray-800/60 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg">
+                        <div class="flex items-center gap-3">
+                            <div class="relative">
+                                <div class="absolute -inset-1 bg-gradient-to-r from-orange-400 to-red-500 rounded-full blur-sm opacity-75 animate-pulse"></div>
+                                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhCDeXufBywGlGcvjFv5OaZNnGnIFboYZgUyo9NPcDt7SH5dWhG6Kv7wOtGMm5uBfA-2RCI41U0IWscQhEPQ9_6mHg192N68FaFDDE4HIfb8zXw6Ubafj329ToS6mYTqHo8Wu8aRidwjczDQZ4Id_t7K-E32b8ZthoHTIH3r86pWwfOmFdNvgcQOOeHBDc/s2000/1000038033.png" 
+                                     alt="Ashfaqur Rahman Tanim"
+                                     class="relative w-8 h-8 rounded-full border-2 border-white dark:border-gray-800 object-cover shadow-lg"
+                                     style="width: 32px; height: 32px; max-width: 32px; max-height: 32px;">
+                                <div class="absolute -bottom-1 -right-1 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white dark:border-gray-800 shadow-md"></div>
+                            </div>
+                            <div class="text-left">
+                                <h3 class="text-sm font-bold text-gray-800 dark:text-gray-200 bg-gradient-to-r from-gray-800 to-gray-600 dark:from-gray-200 dark:to-gray-400 bg-clip-text text-transparent">Ashfaqur Rahman Tanim</h3>
+                                <p class="text-xs text-gray-600 dark:text-gray-400 font-medium">Full Stack Developer</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center gap-2">
+                            <button onclick="openPrivacyPopup()" class="p-2 bg-white/80 dark:bg-gray-700/80 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-900/30 border border-gray-200/50 dark:border-gray-600/50 hover:border-blue-300 dark:hover:border-blue-600 shadow-sm hover:shadow-md transition-all duration-300 group">
+                                <span class="material-symbols-outlined text-blue-600 dark:text-blue-400 text-lg group-hover:scale-110 transition-transform">shield</span>
+                            </button>
+                            <button onclick="openTermsPopup()" class="p-2 bg-white/80 dark:bg-gray-700/80 rounded-xl hover:bg-emerald-50 dark:hover:bg-emerald-900/30 border border-gray-200/50 dark:border-gray-600/50 hover:border-emerald-300 dark:hover:border-emerald-600 shadow-sm hover:shadow-md transition-all duration-300 group">
+                                <span class="material-symbols-outlined text-emerald-600 dark:text-emerald-400 text-lg group-hover:scale-110 transition-transform">gavel</span>
+                            </button>
+                            <a href="https://rovermdashfaq.github.io/portfolio/" target="_blank" class="p-2 bg-white/80 dark:bg-gray-700/80 rounded-xl hover:bg-orange-50 dark:hover:bg-orange-900/30 border border-gray-200/50 dark:border-gray-600/50 hover:border-orange-300 dark:hover:border-orange-600 shadow-sm hover:shadow-md transition-all duration-300 group">
+                                <span class="material-symbols-outlined text-orange-600 dark:text-orange-400 text-lg group-hover:scale-110 transition-transform">work</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Premium Features Badges -->
+                    <div class="bg-green-600 p-2 rounded-xl mb-4 shadow-lg border border-green-400/20">
+                        <div class="flex gap-1 justify-center items-center">
+                            <div class="bg-gradient-to-br from-amber-500 to-orange-500 text-green px-2 py-1 rounded-lg shadow-md transform hover:scale-105 transition-all duration-300 cursor-default border border-amber-300/30 backdrop-blur-sm flex-1 min-w-0">
+                                <div class="flex items-center justify-center gap-1">
+                                    <span class="material-symbols-outlined text-xs">lock</span>
+                                    <span class="text-xs font-bold truncate">NO LOGIN</span>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-gradient-to-br from-purple-600 to-violet-600 text-blue px-2 py-1 rounded-lg shadow-md transform hover:scale-105 transition-all duration-300 cursor-default border border-purple-300/30 backdrop-blur-sm flex-1 min-w-0">
+                                <div class="flex items-center justify-center gap-1">
+                                    <span class="material-symbols-outlined text-xs">security</span>
+                                    <span class="text-xs font-bold truncate">SECURE</span>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-gradient-to-br from-cyan-600 to-blue-600 text-green px-2 py-1 rounded-lg shadow-md transform hover:scale-105 transition-all duration-300 cursor-default border border-cyan-300/30 backdrop-blur-sm flex-1 min-w-0">
+                                <div class="flex items-center justify-center gap-1">
+                                    <span class="material-symbols-outlined text-xs">auto_awesome</span>
+                                    <span class="text-xs font-bold truncate">PREMIUM</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="text-left">
-                    <h3 class="text-sm font-bold text-gray-800 dark:text-gray-200 bg-gradient-to-r from-gray-800 to-gray-600 dark:from-gray-200 dark:to-gray-400 bg-clip-text text-transparent">Ashfaqur Rahman Tanim</h3>
-                    <p class="text-xs text-gray-600 dark:text-gray-400 font-medium">Full Stack Developer</p>
-                </div>
-            </div>
-            
-            <div class="flex items-center gap-2">
-                <button onclick="openPrivacyPopup()" class="p-2 bg-white/80 dark:bg-gray-700/80 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-900/30 border border-gray-200/50 dark:border-gray-600/50 hover:border-blue-300 dark:hover:border-blue-600 shadow-sm hover:shadow-md transition-all duration-300 group">
-                    <span class="material-symbols-outlined text-blue-600 dark:text-blue-400 text-lg group-hover:scale-110 transition-transform">shield</span>
-                </button>
-                <button onclick="openTermsPopup()" class="p-2 bg-white/80 dark:bg-gray-700/80 rounded-xl hover:bg-emerald-50 dark:hover:bg-emerald-900/30 border border-gray-200/50 dark:border-gray-600/50 hover:border-emerald-300 dark:hover:border-emerald-600 shadow-sm hover:shadow-md transition-all duration-300 group">
-                    <span class="material-symbols-outlined text-emerald-600 dark:text-emerald-400 text-lg group-hover:scale-110 transition-transform">gavel</span>
-                </button>
-                <a href="https://rovermdashfaq.github.io/portfolio/" target="_blank" class="p-2 bg-white/80 dark:bg-gray-700/80 rounded-xl hover:bg-orange-50 dark:hover:bg-orange-900/30 border border-gray-200/50 dark:border-gray-600/50 hover:border-orange-300 dark:hover:border-orange-600 shadow-sm hover:shadow-md transition-all duration-300 group">
-                    <span class="material-symbols-outlined text-orange-600 dark:text-orange-400 text-lg group-hover:scale-110 transition-transform">work</span>
-                </a>
-            </div>
+            </footer>
         </div>
 
-        <!-- Premium Features Badges -->
-        <div class="bg-green-600 p-2 rounded-xl mb-4 shadow-lg border border-green-400/20">
-            <div class="flex gap-1 justify-center items-center">
-                <div class="bg-gradient-to-br from-amber-500 to-orange-500 text-green px-2 py-1 rounded-lg shadow-md transform hover:scale-105 transition-all duration-300 cursor-default border border-amber-300/30 backdrop-blur-sm flex-1 min-w-0">
-                    <div class="flex items-center justify-center gap-1">
-                        <span class="material-symbols-outlined text-xs">lock</span>
-                        <span class="text-xs font-bold truncate">NO LOGIN</span>
-                    </div>
-                </div>
-                
-                <div class="bg-gradient-to-br from-purple-600 to-violet-600 text-blue px-2 py-1 rounded-lg shadow-md transform hover:scale-105 transition-all duration-300 cursor-default border border-purple-300/30 backdrop-blur-sm flex-1 min-w-0">
-                    <div class="flex items-center justify-center gap-1">
-                        <span class="material-symbols-outlined text-xs">security</span>
-                        <span class="text-xs font-bold truncate">SECURE</span>
-                    </div>
-                </div>
-                
-                <div class="bg-gradient-to-br from-cyan-600 to-blue-600 text-green px-2 py-1 rounded-lg shadow-md transform hover:scale-105 transition-all duration-300 cursor-default border border-cyan-300/30 backdrop-blur-sm flex-1 min-w-0">
-                    <div class="flex items-center justify-center gap-1">
-                        <span class="material-symbols-outlined text-xs">auto_awesome</span>
-                        <span class="text-xs font-bold truncate">PREMIUM</span>
-                    </div>
-                </div>
+        <!-- Settings Panel -->
+        <div id="settings-overlay" class="settings-overlay"></div>
+        <div id="settings-panel" class="settings-panel">
+            <div class="settings-header">
+                <h2 class="text-xl font-bold">Settings</h2>
+                <button id="close-settings-btn" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
             </div>
-        </div>
-    </div>
-</footer>
-
-<!-- Luxury Privacy Policy Popup -->
-<div id="privacy-popup" class="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 hidden">
-    <div class="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-3xl p-8 mx-4 max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-2xl border border-gray-200/50 dark:border-gray-700/50">
-        <div class="flex items-center justify-between mb-6">
-            <div class="flex items-center gap-3">
-                <div class="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-2xl">
-                    <span class="material-symbols-outlined text-blue-600 dark:text-blue-400 text-2xl">privacy_tip</span>
-                </div>
-                <div>
-                    <h3 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">Privacy Excellence</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">Your data deserves the best protection</p>
-                </div>
+            
+            <div class="settings-option">
+                <label class="settings-label">Auto-refresh Inbox</label>
+                <label class="settings-toggle">
+                    <input type="checkbox" id="auto-refresh-toggle" checked>
+                    <span class="settings-slider"></span>
+                </label>
             </div>
-            <button onclick="closePrivacyPopup()" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-xl transition-colors">
-                <span class="material-symbols-outlined text-gray-500 dark:text-gray-400">close</span>
+            
+            <div class="settings-option">
+                <label class="settings-label">Refresh Interval</label>
+                <select id="refresh-interval" class="settings-select">
+                    <option value="5000">5 seconds</option>
+                    <option value="10000" selected>10 seconds</option>
+                    <option value="15000">15 seconds</option>
+                    <option value="30000">30 seconds</option>
+                </select>
+            </div>
+            
+            <div class="settings-option">
+                <label class="settings-label">Email Display Format</label>
+                <select id="email-format" class="settings-select">
+                    <option value="html" selected>HTML (with styling)</option>
+                    <option value="text">Plain Text</option>
+                </select>
+            </div>
+            
+            <div class="settings-option">
+                <label class="settings-label">Notifications</label>
+                <label class="settings-toggle">
+                    <input type="checkbox" id="notifications-toggle" checked>
+                    <span class="settings-slider"></span>
+                </label>
+            </div>
+            
+            <div class="settings-option">
+                <label class="settings-label">Default Theme</label>
+                <select id="default-theme" class="settings-select">
+                    <option value="system">System Default</option>
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                </select>
+            </div>
+            
+            <button id="reset-settings-btn" class="btn btn-secondary w-full mt-4">
+                <span class="material-symbols-outlined">restart_alt</span>
+                <span>Reset Settings</span>
             </button>
         </div>
-        
-        <div class="space-y-4">
-            <div class="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 p-6 rounded-2xl border border-blue-200/50 dark:border-blue-700/30">
-                <h4 class="font-bold text-blue-800 dark:text-blue-300 text-lg mb-3">🔒 Absolute Privacy Guarantee</h4>
-                <p class="text-gray-700 dark:text-gray-300 mb-4">We built MART Mail-Generator with uncompromising privacy standards that exceed industry norms.</p>
-                
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="flex items-center gap-2">
-                        <span class="material-symbols-outlined text-green-500 text-sm">verified</span>
-                        <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Zero Data Collection</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="material-symbols-outlined text-green-500 text-sm">verified</span>
-                        <span class="text-sm font-medium text-gray-700 dark:text-gray-300">No Tracking</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="material-symbols-outlined text-green-500 text-sm">verified</span>
-                        <span class="text-sm font-medium text-gray-700 dark:text-gray-300">End-to-End Encrypted</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="material-symbols-outlined text-green-500 text-sm">verified</span>
-                        <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Auto Data Deletion</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white dark:bg-gray-800/50 p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/30">
-                <h4 class="font-bold text-gray-800 dark:text-gray-200 text-lg mb-3">🏆 Premium Security Features</h4>
-                <ul class="space-y-2 text-gray-600 dark:text-gray-400">
-                    <li class="flex items-center gap-2">
-                        <span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>
-                        <span>Military-grade temporary email generation</span>
-                    </li>
-                    <li class="flex items-center gap-2">
-                        <span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>
-                        <span>No server-side email storage or logging</span>
-                    </li>
-                    <li class="flex items-center gap-2">
-                        <span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>
-                        <span>Complete anonymity with no user profiling</span>
-                    </li>
-                    <li class="flex items-center gap-2">
-                        <span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>
-                        <span>Enterprise-level privacy compliance</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        
-        <button onclick="closePrivacyPopup()" class="w-full mt-6 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
-            Understand & Continue
-        </button>
-    </div>
-</div>
-
-<!-- Luxury Terms of Service Popup -->
-<div id="terms-popup" class="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 hidden">
-    <div class="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-3xl p-8 mx-4 max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-2xl border border-gray-200/50 dark:border-gray-700/50">
-        <div class="flex items-center justify-between mb-6">
-            <div class="flex items-center gap-3">
-                <div class="p-3 bg-emerald-100 dark:bg-emerald-900/30 rounded-2xl">
-                    <span class="material-symbols-outlined text-emerald-600 dark:text-emerald-400 text-2xl">gavel</span>
-                </div>
-                <div>
-                    <h3 class="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-green-600 dark:from-emerald-400 dark:to-green-400 bg-clip-text text-transparent">Terms of Excellence</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">Premium service, premium standards</p>
-                </div>
-            </div>
-            <button onclick="closeTermsPopup()" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-xl transition-colors">
-                <span class="material-symbols-outlined text-gray-500 dark:text-gray-400">close</span>
-            </button>
-        </div>
-        
-        <div class="space-y-4">
-            <div class="bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 p-6 rounded-2xl border border-emerald-200/50 dark:border-emerald-700/30">
-                <h4 class="font-bold text-emerald-800 dark:text-emerald-300 text-lg mb-3">✅ Approved Usage</h4>
-                <p class="text-gray-700 dark:text-gray-300 mb-4">This premium service is designed for legitimate privacy needs and professional use cases.</p>
-                
-                <div class="grid grid-cols-2 gap-4 text-sm">
-                    <div class="flex items-center gap-2">
-                        <span class="material-symbols-outlined text-blue-500 text-sm">check</span>
-                        <span class="font-medium text-gray-700 dark:text-gray-300">Business Communication</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="material-symbols-outlined text-blue-500 text-sm">check</span>
-                        <span class="font-medium text-gray-700 dark:text-gray-300">Product Testing</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="material-symbols-outlined text-blue-500 text-sm">check</span>
-                        <span class="font-medium text-gray-700 dark:text-gray-300">Newsletter Signups</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="material-symbols-outlined text-blue-500 text-sm">check</span>
-                        <span class="font-medium text-gray-700 dark:text-gray-300">Account Verification</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-gradient-to-r from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 p-6 rounded-2xl border border-red-200/50 dark:border-red-700/30">
-                <h4 class="font-bold text-red-800 dark:text-red-300 text-lg mb-3">🚫 Strictly Prohibited</h4>
-                <ul class="space-y-2 text-gray-700 dark:text-gray-300">
-                    <li class="flex items-center gap-2">
-                        <span class="material-symbols-outlined text-red-500 text-sm">block</span>
-                        <span>Illegal activities or fraudulent behavior</span>
-                    </li>
-                    <li class="flex items-center gap-2">
-                        <span class="material-symbols-outlined text-red-500 text-sm">block</span>
-                        <span>Spamming, phishing, or harassment</span>
-                    </li>
-                    <li class="flex items-center gap-2">
-                        <span class="material-symbols-outlined text-red-500 text-sm">block</span>
-                        <span>Commercial abuse or bulk messaging</span>
-                    </li>
-                    <li class="flex items-center gap-2">
-                        <span class="material-symbols-outlined text-red-500 text-sm">block</span>
-                        <span>Any activity violating international laws</span>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="bg-white dark:bg-gray-800/50 p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/30">
-                <h4 class="font-bold text-gray-800 dark:text-gray-200 text-lg mb-3">⚡ Service Excellence</h4>
-                <div class="grid grid-cols-2 gap-4 text-sm">
-                    <div class="text-center p-3 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
-                        <span class="material-symbols-outlined text-purple-500 text-xl">auto_awesome</span>
-                        <p class="font-semibold text-gray-700 dark:text-gray-300 mt-1">Premium Quality</p>
-                        <p class="text-gray-500 dark:text-gray-400 text-xs">Enterprise-grade service</p>
-                    </div>
-                    <div class="text-center p-3 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
-                        <span class="material-symbols-outlined text-cyan-500 text-xl">security</span>
-                        <p class="font-semibold text-gray-700 dark:text-gray-300 mt-1">Maximum Security</p>
-                        <p class="text-gray-500 dark:text-gray-400 text-xs">Military-level protection</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <button onclick="closeTermsPopup()" class="w-full mt-6 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
-            Accept Premium Terms
-        </button>
-    </div>
-</div>
-
-<script>
-// Popup Functions
-function openPrivacyPopup() {
-    document.getElementById('privacy-popup').classList.remove('hidden');
-}
-
-function closePrivacyPopup() {
-    document.getElementById('privacy-popup').classList.add('hidden');
-}
-
-function openTermsPopup() {
-    document.getElementById('terms-popup').classList.remove('hidden');
-}
-
-function closeTermsPopup() {
-    document.getElementById('terms-popup').classList.add('hidden');
-}
-
-// Close popups when clicking outside
-document.addEventListener('click', function(event) {
-    const privacyPopup = document.getElementById('privacy-popup');
-    const termsPopup = document.getElementById('terms-popup');
-    
-    if (event.target === privacyPopup) {
-        closePrivacyPopup();
-    }
-    if (event.target === termsPopup) {
-        closeTermsPopup();
-    }
-});
-
-// Close popups with Escape key
-document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-        closePrivacyPopup();
-        closeTermsPopup();
-    }
-});
-</script>
-            
-            
 
         <!-- Email Details Screen -->
         <div id="email-screen" class="hidden flex-col h-full">
@@ -811,16 +1261,27 @@ document.addEventListener('keydown', function(event) {
                         </div>
                     </div>
                     <p class="font-semibold text-lg mt-3" id="email-subject-display"></p>
+                    
+                    <!-- Email tags for categorization -->
+                    <div id="email-tags" class="mt-2">
+                        <!-- Tags will be dynamically added here -->
+                    </div>
                 </div>
                 
                 <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl mt-2 h-[60vh] overflow-hidden border border-gray-100 dark:border-gray-700 fade-in">
                      <iframe id="email-body" class="w-full h-full border-0 rounded-2xl" sandbox="allow-same-origin allow-scripts"></iframe>
                 </div>
 
-                <button id="delete-message-btn" class="btn btn-danger">
-                    <span class="material-symbols-outlined">delete</span>
-                    <span>Delete Message (Local)</span>
-                </button>
+                <div class="email-actions">
+                    <button id="reply-btn" class="btn btn-primary">
+                        <span class="material-symbols-outlined">reply</span>
+                        <span>Reply (Simulated)</span>
+                    </button>
+                    <button id="delete-message-btn" class="btn btn-danger">
+                        <span class="material-symbols-outlined">delete</span>
+                        <span>Delete Message</span>
+                    </button>
+                </div>
             </main>
         </div>
     </div>
@@ -828,6 +1289,216 @@ document.addEventListener('keydown', function(event) {
     <!-- Toast Notifications Container -->
     <div id="toast-container" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 space-y-3 flex flex-col items-center pointer-events-none"></div>
     
+    <!-- Privacy Policy Popup -->
+    <div id="privacy-popup" class="popup-overlay">
+        <div class="popup-container">
+            <div class="popup-header">
+                <h2 class="popup-title">
+                    <span class="material-symbols-outlined">privacy_tip</span>
+                    Privacy Policy
+                </h2>
+                <button class="popup-close" onclick="closePrivacyPopup()">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            
+            <div class="popup-content">
+                <div class="highlight-box">
+                    <p><strong>Last Updated:</strong> November 2025</p>
+                    <p>MART Mail-Generator is committed to protecting your privacy. This Privacy Policy explains how we handle your information when you use our temporary email service.</p>
+                </div>
+
+                <div class="popup-section">
+                    <h3><span class="material-symbols-outlined">security</span>Information We Collect</h3>
+                    <p>We are proud to operate a <strong>zero-data collection</strong> service:</p>
+                    <ul class="popup-list">
+                        <li><strong>No Personal Information:</strong> We don't collect your name, email address, or any personal identifiers</li>
+                        <li><strong>No Usage Analytics:</strong> We don't track your browsing behavior or service usage patterns</li>
+                        <li><strong>No Cookies:</strong> We don't use tracking cookies or similar technologies</li>
+                        <li><strong>No IP Logging:</strong> We don't store your IP address or location data</li>
+                    </ul>
+                </div>
+
+                <div class="popup-section">
+                    <h3><span class="material-symbols-outlined">mail</span>Email Handling</h3>
+                    <p>Your privacy is our top priority in email management:</p>
+                    <ul class="popup-list">
+                        <li><strong>Temporary Storage:</strong> Emails are stored temporarily and automatically deleted</li>
+                        <li><strong>No Content Scanning:</strong> We don't read or analyze your email content</li>
+                        <li><strong>End-to-End Privacy:</strong> Emails are accessible only through your temporary inbox</li>
+                        <li><strong>Automatic Deletion:</strong> All data is permanently deleted when you generate a new email</li>
+                    </ul>
+                </div>
+
+                <div class="popup-section">
+                    <h3><span class="material-symbols-outlined">share</span>Third-Party Services</h3>
+                    <p>We use minimal third-party services to ensure functionality:</p>
+                    <ul class="popup-list">
+                        <li><strong>Mail.TM API:</strong> For temporary email generation and management</li>
+                        <li><strong>Google Fonts:</strong> For typography (loaded from Google's servers)</li>
+                        <li><strong>No Advertising:</strong> We don't integrate with any advertising networks</li>
+                    </ul>
+                </div>
+
+                <div class="popup-section">
+                    <h3><span class="material-symbols-outlined">admin_panel_settings</span>Your Rights</h3>
+                    <p>You have complete control over your data:</p>
+                    <ul class="popup-list">
+                        <li><strong>Right to Access:</strong> View all emails in your temporary inbox</li>
+                        <li><strong>Right to Delete:</strong> Instantly delete your temporary email and all associated data</li>
+                        <li><strong>Right to Anonymity:</strong> Use our service without providing any personal information</li>
+                        <li><strong>Right to Disappear:</strong> Your data vanishes when you close the browser or generate a new email</li>
+                    </ul>
+                </div>
+
+                <div class="popup-section">
+                    <h3><span class="material-symbols-outlined">family_restroom</span>Children's Privacy</h3>
+                    <p>Our service is safe for users of all ages:</p>
+                    <ul class="popup-list">
+                        <li>No age verification required</li>
+                        <li>No personal information collected from any users</li>
+                        <li>Completely anonymous usage</li>
+                    </ul>
+                </div>
+
+                <div class="contact-info">
+                    <h4><span class="material-symbols-outlined">contact_support</span>Contact Us</h4>
+                    <p>If you have any questions about this Privacy Policy, please contact:</p>
+<p class="contact-email"><a href="mailto:mdashfaqurrahmantanim@gmail.com">mdashfaqurrahmantanim@gmail.com</a></p>
+                </div>
+
+                <div class="popup-footer">
+                    <p class="last-updated">Last updated: November 2025</p>
+                    <button class="accept-button" onclick="closePrivacyPopup()">
+                        <span class="material-symbols-outlined">check</span>
+                        I Understand
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms of Service Popup -->
+    <div id="terms-popup" class="popup-overlay">
+        <div class="popup-container">
+            <div class="popup-header">
+                <h2 class="popup-title">
+                    <span class="material-symbols-outlined">gavel</span>
+                    Terms of Service
+                </h2>
+                <button class="popup-close" onclick="closeTermsPopup()">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            
+            <div class="popup-content">
+                <div class="highlight-box">
+                    <p><strong>Last Updated:</strong> December 2024</p>
+                    <p>By using MART Mail-Generator, you agree to these Terms of Service. Please read them carefully.</p>
+                </div>
+
+                <div class="popup-section">
+                    <h3><span class="material-symbols-outlined">description</span>Service Description</h3>
+                    <p>MART Mail-Generator provides temporary, anonymous email addresses for:</p>
+                    <ul class="popup-list">
+                        <li>Signing up for online services without using your personal email</li>
+                        <li>Receiving verification emails and one-time passwords</li>
+                        <li>Testing email functionality during development</li>
+                        <li>Protecting your primary email from spam</li>
+                    </ul>
+                </div>
+
+                <div class="popup-section">
+                    <h3><span class="material-symbols-outlined">check_circle</span>Acceptable Use</h3>
+                    <p>You may use our service for legitimate purposes including:</p>
+                    <ul class="popup-list">
+                        <li>Website registrations and account verifications</li>
+                        <li>Newsletter subscriptions</li>
+                        <li>Software testing and development</li>
+                        <li>Educational and research purposes</li>
+                        <li>Personal privacy protection</li>
+                    </ul>
+                </div>
+
+                <div class="popup-section">
+                    <h3><span class="material-symbols-outlined">block</span>Prohibited Activities</h3>
+                    <p>You agree not to use our service for:</p>
+                    <ul class="popup-list">
+                        <li>Illegal activities or fraud</li>
+                        <li>Spamming, phishing, or harassment</li>
+                        <li>Spreading malware or viruses</li>
+                        <li>Impersonating others</li>
+                        <li>Commercial spamming or bulk messaging</li>
+                        <li>Any activity that violates laws or regulations</li>
+                    </ul>
+                </div>
+
+                <div class="popup-section">
+                    <h3><span class="material-symbols-outlined">warning</span>Service Limitations</h3>
+                    <p>Please be aware of these important limitations:</p>
+                    <ul class="popup-list">
+                        <li><strong>Temporary Nature:</strong> Emails and accounts are temporary and may be deleted automatically</li>
+                        <li><strong>No Guarantees:</strong> We don't guarantee email delivery or service availability</li>
+                        <li><strong>No Support:</strong> This is a free service provided without technical support</li>
+                        <li><strong>No Backups:</strong> We don't backup or archive any emails</li>
+                        <li><strong>Service Changes:</strong> We may modify or discontinue the service at any time</li>
+                    </ul>
+                </div>
+
+                <div class="popup-section">
+                    <h3><span class="material-symbols-outlined">balance</span>Intellectual Property</h3>
+                    <p>All rights reserved:</p>
+                    <ul class="popup-list">
+                        <li>The MART Mail-Generator name and logo are trademarks</li>
+                        <li>All code, design, and content are protected by copyright</li>
+                        <li>You may not copy, modify, or distribute our service without permission</li>
+                    </ul>
+                </div>
+
+                <div class="popup-section">
+                    <h3><span class="material-symbols-outlined">gpp_maybe</span>Disclaimer of Warranties</h3>
+                    <p>The service is provided "as is" without any warranties:</p>
+                    <ul class="popup-list">
+                        <li>We don't guarantee uninterrupted or error-free service</li>
+                        <li>We're not responsible for lost emails or service interruptions</li>
+                        <li>We don't guarantee the security of your communications</li>
+                        <li>Use the service at your own risk</li>
+                    </ul>
+                </div>
+
+                <div class="popup-section">
+                    <h3><span class="material-symbols-outlined">legal</span>Limitation of Liability</h3>
+                    <p>To the fullest extent permitted by law:</p>
+                    <ul class="popup-list">
+                        <li>We're not liable for any direct, indirect, or consequential damages</li>
+                        <li>We're not responsible for how you use the service</li>
+                        <li>We're not liable for any data loss or security breaches</li>
+                        <li>Our total liability is limited to the amount you paid for the service (which is $0)</li>
+                    </ul>
+                </div>
+
+                <div class="popup-section">
+                    <h3><span class="material-symbols-outlined">public</span>Governing Law</h3>
+                    <p>These terms are governed by the laws of Bangladesh. Any disputes shall be resolved in the courts of Bangladesh.</p>
+                </div>
+
+                <div class="contact-info">
+                    <h4><span class="material-symbols-outlined">contact_support</span>Contact Information</h4>
+                    <p>For questions about these Terms of Service:</p>
+<p class="contact-email"><a href="mailto:mdashfaqurrahmantanim@gmail.com">mdashfaqurrahmantanim@gmail.com</a></p>
+                </div>
+
+                <div class="popup-footer">
+                    <p class="last-updated">Last updated: December 2024</p>
+                    <button class="accept-button" onclick="closeTermsPopup()">
+                        <span class="material-symbols-outlined">check</span>
+                        I Accept
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // --- STATE MANAGEMENT ---
         const API_BASE = 'https://api.mail.tm';
@@ -838,6 +1509,15 @@ document.addEventListener('keydown', function(event) {
             token: null,
         };
         let inboxInterval = null;
+        let sessionStartTime = null;
+        let sessionTimer = null;
+        let settings = {
+            autoRefresh: true,
+            refreshInterval: 10000,
+            emailFormat: 'html',
+            notifications: true,
+            defaultTheme: 'system'
+        };
 
         // --- DOM ELEMENTS ---
         const DOMElements = {
@@ -864,10 +1544,70 @@ document.addEventListener('keydown', function(event) {
             emailBody: document.getElementById('email-body'),
             deleteMessageBtn: document.getElementById('delete-message-btn'),
             toastContainer: document.getElementById('toast-container'),
+            settingsBtn: document.getElementById('settings-btn'),
+            settingsPanel: document.getElementById('settings-panel'),
+            settingsOverlay: document.getElementById('settings-overlay'),
+            closeSettingsBtn: document.getElementById('close-settings-btn'),
+            autoRefreshToggle: document.getElementById('auto-refresh-toggle'),
+            refreshInterval: document.getElementById('refresh-interval'),
+            emailFormat: document.getElementById('email-format'),
+            notificationsToggle: document.getElementById('notifications-toggle'),
+            defaultTheme: document.getElementById('default-theme'),
+            resetSettingsBtn: document.getElementById('reset-settings-btn'),
+            emailCount: document.getElementById('email-count'),
+            sessionTime: document.getElementById('session-time'),
+            connectionDot: document.getElementById('connection-dot'),
+            connectionText: document.getElementById('connection-text'),
+            filterBtn: document.getElementById('filter-btn'),
+            emailTags: document.getElementById('email-tags'),
+            replyBtn: document.getElementById('reply-btn')
         };
 
+        // --- POPUP FUNCTIONS ---
+        function openPrivacyPopup() {
+            document.getElementById('privacy-popup').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePrivacyPopup() {
+            document.getElementById('privacy-popup').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function openTermsPopup() {
+            document.getElementById('terms-popup').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeTermsPopup() {
+            document.getElementById('terms-popup').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close popups when clicking outside
+        document.addEventListener('click', function(event) {
+            const privacyPopup = document.getElementById('privacy-popup');
+            const termsPopup = document.getElementById('terms-popup');
+            
+            if (event.target === privacyPopup) {
+                closePrivacyPopup();
+            }
+            if (event.target === termsPopup) {
+                closeTermsPopup();
+            }
+        });
+
+        // Close popups with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closePrivacyPopup();
+                closeTermsPopup();
+                closeSettings();
+            }
+        });
+
         // --- API FUNCTIONS ---
-        const fetchWithTimeout = async (url, options = {}, timeout = 15000) => { // Increased timeout
+        const fetchWithTimeout = async (url, options = {}, timeout = 15000) => {
             const controller = new AbortController();
             const id = setTimeout(() => controller.abort(), timeout);
             try {
@@ -888,6 +1628,7 @@ document.addEventListener('keydown', function(event) {
             showSpinner(DOMElements.deleteMailBtn, true);
             
             clearInterval(inboxInterval); // Clear existing interval
+            updateConnectionStatus('connecting');
 
             if (isDelete && currentAccount.id && currentAccount.token) {
                 try {
@@ -905,6 +1646,7 @@ document.addEventListener('keydown', function(event) {
             DOMElements.emailAddress.textContent = 'Generating...';
             DOMElements.inboxList.innerHTML = '';
             DOMElements.emptyInbox.style.display = 'block';
+            DOMElements.emailCount.textContent = '0';
 
             try {
                 const domainResponse = await fetchWithTimeout(`${API_BASE}/domains`);
@@ -915,7 +1657,7 @@ document.addEventListener('keydown', function(event) {
                 }
                 const domain = domains['hydra:member'][0].domain;
 
-                const address = `${Math.random().toString(36).substring(2, 10)}@${domain}`; // Shorter random string
+                const address = `${Math.random().toString(36).substring(2, 10)}@${domain}`;
                 const password = Math.random().toString(36).substring(2);
 
                 const accountResponse = await fetchWithTimeout(`${API_BASE}/accounts`, {
@@ -948,11 +1690,20 @@ document.addEventListener('keydown', function(event) {
                 };
 
                 DOMElements.emailAddress.textContent = currentAccount.address;
+                updateConnectionStatus('connected');
                 showToast("New email generated!", "success");
                 checkInbox();
-                inboxInterval = setInterval(checkInbox, 10000); // 10 seconds auto-refresh
+                
+                // Start session timer
+                startSessionTimer();
+                
+                // Setup auto-refresh if enabled
+                if (settings.autoRefresh) {
+                    inboxInterval = setInterval(checkInbox, settings.refreshInterval);
+                }
             } catch (error) {
                 console.error('Error getting new email:', error);
+                updateConnectionStatus('error');
                 showToast(`Error creating email: ${error.message}. Please try again.`, "error");
                 DOMElements.emailAddress.textContent = 'Error!';
             } finally {
@@ -983,13 +1734,23 @@ document.addEventListener('keydown', function(event) {
 
                 if (newMessages.length > 0) {
                     showToast(`${newMessages.length} new email(s) arrived!`, "info");
+                    
+                    // Show browser notification if enabled
+                    if (settings.notifications && 'Notification' in window && Notification.permission === 'granted') {
+                        new Notification(`MART Mail-Generator`, {
+                            body: `You have ${newMessages.length} new email(s)`,
+                            icon: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhCDeXufBywGlGcvjFv5OaZNnGnIFboYZgUyo9NPcDt7SH5dWhG6Kv7wOtGMm5uBfA-2RCI41U0IWscQhEPQ9_6mHg192N68FaFDDE4HIfb8zXw6Ubafj329ToS6mYTqHo8Wu8aRidwjczDQZ4Id_t7K-E32b8ZthoHTIH3r86pWwfOmFdNvgcQOOeHBDc/s2000/1000038033.png'
+                        });
+                    }
                 }
                 
                 renderInbox(messages['hydra:member']);
+                updateConnectionStatus('connected');
             } catch (error) {
                 console.error('Error checking inbox:', error);
-                if (error.message !== 'Request timed out') { // Don't show toast for timeouts
+                if (error.message !== 'Request timed out') {
                     showToast("Failed to refresh inbox.", "error");
+                    updateConnectionStatus('error');
                 }
             } finally {
                 showSpinner(DOMElements.refreshBtn, false);
@@ -1008,6 +1769,7 @@ document.addEventListener('keydown', function(event) {
             DOMElements.emailTo.textContent = '';
             DOMElements.emailTimestamp.textContent = '';
             DOMElements.emailAvatar.textContent = '';
+            DOMElements.emailTags.innerHTML = '';
             DOMElements.emailBody.srcdoc = '<p class="text-center text-gray-500 dark:text-gray-400 mt-10">Loading email content...</p>';
             
             try {
@@ -1024,8 +1786,19 @@ document.addEventListener('keydown', function(event) {
                 DOMElements.emailTimestamp.textContent = formatDate(new Date(emailData.createdAt));
                 DOMElements.emailAvatar.textContent = (emailData.from.name || emailData.from.address)[0].toUpperCase();
                 
+                // Add tags based on email content
+                addEmailTags(emailData);
+                
                 // Render HTML content safely in a sandboxed iframe
                 const themeClass = document.documentElement.classList.contains('dark') ? 'dark' : '';
+                let emailContent = '';
+                
+                if (settings.emailFormat === 'text' || !emailData.html || emailData.html.length === 0) {
+                    emailContent = `<pre style="font-family: 'Space Grotesk', sans-serif; white-space: pre-wrap;">${escapeHTML(emailData.text || 'No content available')}</pre>`;
+                } else {
+                    emailContent = emailData.html[0];
+                }
+                
                 const iframeDoc = `
                     <!DOCTYPE html>
                     <html lang="en" class="${themeClass}">
@@ -1046,10 +1819,11 @@ document.addEventListener('keydown', function(event) {
                             a { color: var(--primary-light); text-decoration: none; }
                             html.dark a { color: var(--primary-dark); }
                             a:hover { text-decoration: underline; }
+                            pre { white-space: pre-wrap; font-family: inherit; }
                         </style>
                     </head>
                     <body>
-                        ${emailData.html[0] || `<p>${escapeHTML(emailData.text)}</p>`}
+                        ${emailContent}
                     </body>
                     </html>
                 `;
@@ -1073,20 +1847,48 @@ document.addEventListener('keydown', function(event) {
                 DOMElements.emptyInbox.style.display = 'none';
                 DOMElements.inboxList.style.display = 'block';
                 messages.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                
+                // Update email count
+                DOMElements.emailCount.textContent = messages.length;
+                
                 messages.forEach(msg => {
                     const emailItem = document.createElement('div');
                     emailItem.className = 'bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-lg cursor-pointer transition-all duration-200 email-item-hover border border-gray-100 dark:border-gray-700 fade-in';
                     emailItem.dataset.id = msg.id;
                     
+                    // Determine if email is unread (simulated)
+                    const isUnread = !msg.hasBeenRead;
+                    
                     emailItem.innerHTML = `
                         <div class="flex items-center justify-between">
-                            <p class="font-semibold text-base truncate pr-2">${escapeHTML(msg.from.name || msg.from.address)}</p>
+                            <p class="font-semibold text-base truncate pr-2 ${isUnread ? 'text-blue-600 dark:text-blue-400' : ''}">${escapeHTML(msg.from.name || msg.from.address)}</p>
                             <p class="text-xs text-gray-500 dark:text-gray-400 flex-shrink-0">${formatDate(new Date(msg.createdAt))}</p>
                         </div>
-                        <p class="font-medium text-lg truncate mt-1">${escapeHTML(msg.subject || '(No Subject)')}</p>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 truncate mt-1">${escapeHTML(msg.intro || '(No preview available)')}</p>
+                        <p class="font-medium text-lg truncate mt-1 ${isUnread ? 'font-bold' : ''}">${escapeHTML(msg.subject || '(No Subject)')}</p>
+                        <div class="email-preview">
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">${escapeHTML(msg.intro || '(No preview available)')}</p>
+                        </div>
+                        <button class="expand-btn">
+                            <span class="material-symbols-outlined text-sm">expand_more</span>
+                            <span>Show more</span>
+                        </button>
                     `;
                     DOMElements.inboxList.appendChild(emailItem);
+                    
+                    // Add expand functionality
+                    const expandBtn = emailItem.querySelector('.expand-btn');
+                    const emailPreview = emailItem.querySelector('.email-preview');
+                    
+                    expandBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        emailItem.classList.toggle('email-expanded');
+                        
+                        if (emailItem.classList.contains('email-expanded')) {
+                            expandBtn.innerHTML = '<span class="material-symbols-outlined text-sm">expand_less</span><span>Show less</span>';
+                        } else {
+                            expandBtn.innerHTML = '<span class="material-symbols-outlined text-sm">expand_more</span><span>Show more</span>';
+                        }
+                    });
                 });
             }
         };
@@ -1172,6 +1974,126 @@ document.addEventListener('keydown', function(event) {
             }
         };
 
+        const updateConnectionStatus = (status) => {
+            const dot = DOMElements.connectionDot;
+            const text = DOMElements.connectionText;
+            
+            dot.className = 'connection-dot';
+            text.textContent = 'Connected';
+            
+            switch(status) {
+                case 'connected':
+                    dot.classList.add('connected');
+                    text.textContent = 'Connected';
+                    break;
+                case 'connecting':
+                    dot.classList.add('connecting');
+                    text.textContent = 'Connecting...';
+                    break;
+                case 'error':
+                    dot.classList.add('offline');
+                    text.textContent = 'Connection Error';
+                    break;
+                default:
+                    dot.classList.add('offline');
+                    text.textContent = 'Disconnected';
+            }
+        };
+
+        const startSessionTimer = () => {
+            sessionStartTime = new Date();
+            
+            if (sessionTimer) {
+                clearInterval(sessionTimer);
+            }
+            
+            sessionTimer = setInterval(() => {
+                const now = new Date();
+                const diff = Math.floor((now - sessionStartTime) / 1000 / 60); // Difference in minutes
+                DOMElements.sessionTime.textContent = `${diff}m`;
+            }, 60000); // Update every minute
+        };
+
+        const addEmailTags = (emailData) => {
+            // Clear previous tags
+            DOMElements.emailTags.innerHTML = '';
+            
+            // Add tags based on email content
+            const tags = [];
+            
+            // Check for common email types
+            if (emailData.subject) {
+                const subject = emailData.subject.toLowerCase();
+                
+                if (subject.includes('verification') || subject.includes('confirm')) {
+                    tags.push({ text: 'Verification', type: 'primary' });
+                }
+                
+                if (subject.includes('newsletter') || subject.includes('news')) {
+                    tags.push({ text: 'Newsletter', type: 'secondary' });
+                }
+                
+                if (subject.includes('password') || subject.includes('reset')) {
+                    tags.push({ text: 'Security', type: 'primary' });
+                }
+                
+                if (subject.includes('welcome') || subject.includes('onboarding')) {
+                    tags.push({ text: 'Welcome', type: 'secondary' });
+                }
+            }
+            
+            // Add tags to DOM
+            tags.forEach(tag => {
+                const tagElement = document.createElement('span');
+                tagElement.className = `email-tag ${tag.type}`;
+                tagElement.textContent = tag.text;
+                DOMElements.emailTags.appendChild(tagElement);
+            });
+        };
+
+        // --- SETTINGS MANAGEMENT ---
+        const loadSettings = () => {
+            const savedSettings = localStorage.getItem('mart-mail-settings');
+            if (savedSettings) {
+                settings = { ...settings, ...JSON.parse(savedSettings) };
+            }
+            
+            // Apply settings to UI
+            DOMElements.autoRefreshToggle.checked = settings.autoRefresh;
+            DOMElements.refreshInterval.value = settings.refreshInterval;
+            DOMElements.emailFormat.value = settings.emailFormat;
+            DOMElements.notificationsToggle.checked = settings.notifications;
+            DOMElements.defaultTheme.value = settings.defaultTheme;
+        };
+
+        const saveSettings = () => {
+            localStorage.setItem('mart-mail-settings', JSON.stringify(settings));
+        };
+
+        const resetSettings = () => {
+            settings = {
+                autoRefresh: true,
+                refreshInterval: 10000,
+                emailFormat: 'html',
+                notifications: true,
+                defaultTheme: 'system'
+            };
+            
+            saveSettings();
+            loadSettings();
+            showToast('Settings reset to defaults', 'info');
+        };
+
+        const openSettings = () => {
+            DOMElements.settingsPanel.classList.add('open');
+            DOMElements.settingsOverlay.classList.add('active');
+        };
+
+        const closeSettings = () => {
+            DOMElements.settingsPanel.classList.remove('open');
+            DOMElements.settingsOverlay.classList.remove('active');
+        };
+
         // --- THEME MANAGEMENT ---
         const applyTheme = (theme) => {
             if (theme === 'dark') {
@@ -1204,9 +2126,22 @@ document.addEventListener('keydown', function(event) {
 
         // --- INITIALIZATION ---
         const initApp = async () => {
+            // Load settings
+            loadSettings();
+            
             // Setup theme
-            const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            let savedTheme = localStorage.getItem('theme');
+            if (!savedTheme && settings.defaultTheme === 'system') {
+                savedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            } else if (!savedTheme) {
+                savedTheme = settings.defaultTheme;
+            }
             applyTheme(savedTheme);
+
+            // Request notification permission
+            if ('Notification' in window && settings.notifications) {
+                Notification.requestPermission();
+            }
 
             // Splash screen logic
             setTimeout(() => {
@@ -1214,7 +2149,7 @@ document.addEventListener('keydown', function(event) {
                 DOMElements.appContainer.style.opacity = '1';
                 document.body.style.overflow = 'auto'; // Re-enable body scroll
                 DOMElements.splashScreen.addEventListener('transitionend', () => DOMElements.splashScreen.style.display = 'none');
-            }, 2500); // Increased splash screen duration slightly
+            }, 2500);
 
             // Initial email generation
             await getNewEmail();
@@ -1228,14 +2163,83 @@ document.addEventListener('keydown', function(event) {
             DOMElements.backToInboxBtn.addEventListener('click', showHomeScreen);
             DOMElements.inboxList.addEventListener('click', (e) => {
                 const emailItem = e.target.closest('[data-id]');
-                if (emailItem) {
+                if (emailItem && !e.target.closest('.expand-btn')) {
                     openEmail(emailItem.dataset.id);
                 }
             });
+            
+            // Settings event listeners
+            DOMElements.settingsBtn.addEventListener('click', openSettings);
+            DOMElements.closeSettingsBtn.addEventListener('click', closeSettings);
+            DOMElements.settingsOverlay.addEventListener('click', closeSettings);
+            
+            DOMElements.autoRefreshToggle.addEventListener('change', (e) => {
+                settings.autoRefresh = e.target.checked;
+                saveSettings();
+                
+                if (settings.autoRefresh) {
+                    inboxInterval = setInterval(checkInbox, settings.refreshInterval);
+                    showToast('Auto-refresh enabled', 'info');
+                } else {
+                    clearInterval(inboxInterval);
+                    showToast('Auto-refresh disabled', 'info');
+                }
+            });
+            
+            DOMElements.refreshInterval.addEventListener('change', (e) => {
+                settings.refreshInterval = parseInt(e.target.value);
+                saveSettings();
+                
+                if (settings.autoRefresh) {
+                    clearInterval(inboxInterval);
+                    inboxInterval = setInterval(checkInbox, settings.refreshInterval);
+                }
+                
+                showToast(`Refresh interval set to ${settings.refreshInterval/1000} seconds`, 'info');
+            });
+            
+            DOMElements.emailFormat.addEventListener('change', (e) => {
+                settings.emailFormat = e.target.value;
+                saveSettings();
+                showToast(`Email format set to ${e.target.value}`, 'info');
+            });
+            
+            DOMElements.notificationsToggle.addEventListener('change', (e) => {
+                settings.notifications = e.target.checked;
+                saveSettings();
+                
+                if (settings.notifications) {
+                    Notification.requestPermission();
+                }
+                
+                showToast(`Notifications ${settings.notifications ? 'enabled' : 'disabled'}`, 'info');
+            });
+            
+            DOMElements.defaultTheme.addEventListener('change', (e) => {
+                settings.defaultTheme = e.target.value;
+                saveSettings();
+                
+                if (e.target.value === 'system') {
+                    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                    applyTheme(systemTheme);
+                } else {
+                    applyTheme(e.target.value);
+                }
+                
+                showToast(`Default theme set to ${e.target.value}`, 'info');
+            });
+            
+            DOMElements.resetSettingsBtn.addEventListener('click', resetSettings);
+            
             // "Delete Message" is simulated locally by just going back to the inbox.
             DOMElements.deleteMessageBtn.addEventListener('click', () => {
                 showToast("Message hidden locally.", "info");
                 showHomeScreen();
+            });
+            
+            // Simulated reply button
+            DOMElements.replyBtn.addEventListener('click', () => {
+                showToast("Reply functionality is simulated in this demo.", "info");
             });
         };
 
