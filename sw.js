@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mart-mail-cache-v1';
+const CACHE_NAME = 'mart-mail-cache-v3';
 const urlsToCache = [
     '/',
     '/index.html',
