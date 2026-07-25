@@ -1,8 +1,8 @@
 {
-  "name": "MART Mail Generator",
-  "short_name": "MART Mail",
+  "name": "MART Mail Generator v2",
+  "short_name": "MART Mail v2",
   "description": "Free temporary email service with complete privacy",
-  "start_url": "MART-Mail-Generator",
+  "start_url": "/MART-Mail-Generator?utm_source=pwa",
   "display": "standalone",
   "background_color": "#5a2e9b",
   "theme_color": "#5a2e9b",
