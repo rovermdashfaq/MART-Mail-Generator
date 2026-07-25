@@ -1,0 +1,24 @@
+{
+  "name": "MART Mail Generator",
+  "short_name": "MART Mail",
+  "description": "Free temporary email service with complete privacy",
+  "start_url": "MART-Mail-Generator",
+  "display": "standalone",
+  "background_color": "#5a2e9b",
+  "theme_color": "#5a2e9b",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh9QTDt8nOGal5jsTSDRH-GaB37nraLAy_TS-IpDi1CtBEACxfZo5YRD2MOCQ-pbbgLYaGyD0GpePgqdcIR6xIj66KMVzcKRYOhpDiMmiWYz7jPKSY_egdlAAwP8UjVSvyOcVWvS70C7v8-gzSr40eJ39IAJ3L32HRIx6x1mOuaW-8A_A_rvmn31IbYlA8/s2480/1000045676.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh9QTDt8nOGal5jsTSDRH-GaB37nraLAy_TS-IpDi1CtBEACxfZo5YRD2MOCQ-pbbgLYaGyD0GpePgqdcIR6xIj66KMVzcKRYOhpDiMmiWYz7jPKSY_egdlAAwP8UjVSvyOcVWvS70C7v8-gzSr40eJ39IAJ3L32HRIx6x1mOuaW-8A_A_rvmn31IbYlA8/s2480/1000045676.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
