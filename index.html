@@ -2,13 +2,22 @@
 <html lang="en" class="light">
 <head>
     <meta charset="UTF-8">
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MART Mail Generator</title>
     <meta name="description" content="MART Mail-Generator - Free temporary email service with complete privacy. No login, no signup required. Get anonymous disposable emails instantly to protect your main inbox from spam and maintain online privacy.">
     <meta name="keywords" content="temporary email, disposable email, fake email, anonymous email, temp mail, secure email, free email generator, temp mail, burner email, spam protection, email privacy, no signup email, temporary inbox, email forwarding, privacy tools, anonymous communication, email verification, spam filter, secure communication, privacy-focused email">
     <meta name="author" content="Md. Ashfaqur Rahman Tanim">
     <meta property="og:image" content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh9QTDt8nOGal5jsTSDRH-GaB37nraLAy_TS-IpDi1CtBEACxfZo5YRD2MOCQ-pbbgLYaGyD0GpePgqdcIR6xIj66KMVzcKRYOhpDiMmiWYz7jPKSY_egdlAAwP8UjVSvyOcVWvS70C7v8-gzSr40eJ39IAJ3L32HRIx6x1mOuaW-8A_A_rvmn31IbYlA8/s2480/1000045676.png">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh9QTDt8nOGal5jsTSDRH-GaB37nraLAy_TS-IpDi1CtBEACxfZo5YRD2MOCQ-pbbgLYaGyD0GpePgqdcIR6xIj66KMVzcKRYOhpDiMmiWYz7jPKSY_egdlAAwP8UjVSvyOcVWvS70C7v8-gzSr40eJ39IAJ3L32HRIx6x1mOuaW-8A_A_rvmn31IbYlA8/s2480/1000045676.png">
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="MART Mail">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#5a2e9b">
     
     <!-- Google Fonts: Space Grotesk & Material Symbols Outlined -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,33 +28,33 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
 
     <style>
+        /* ... আপনার সমস্ত CSS কোড এখানে থাকবে ... */
         :root {
-            --primary-light: #5a2e9b; /* Deep Violet */
-            --secondary-light: #9c27b0; /* Purple */
-            --bg-light-1: #f3e5f5; /* Light Purple Background */
-            --bg-light-2: #e1bee7; /* Slightly darker */
-            --text-light-1: #311b92; /* Dark Violet Text */
-            --text-light-2: #6a1b9a; /* Medium Purple Text */
+            --primary-light: #5a2e9b;
+            --secondary-light: #9c27b0;
+            --bg-light-1: #f3e5f5;
+            --bg-light-2: #e1bee7;
+            --text-light-1: #311b92;
+            --text-light-2: #6a1b9a;
             --card-bg-light: #ffffff;
-            --border-light: #e0b0ff; /* Light Violet Border */
+            --border-light: #e0b0ff;
             --shadow-light: rgba(0, 0, 0, 0.15);
             --success-light: #4caf50;
             --error-light: #f44336;
 
-            --primary-dark: #b39ddb; /* Lighter Violet */
-            --secondary-dark: #ce93d8; /* Lighter Purple */
-            --bg-dark-1: #210e30; /* Darker Violet Background */
-            --bg-dark-2: #3a1c4e; /* Medium Dark Violet */
+            --primary-dark: #b39ddb;
+            --secondary-dark: #ce93d8;
+            --bg-dark-1: #210e30;
+            --bg-dark-2: #3a1c4e;
             --text-dark-1: #e0e0e0;
-            --text-dark-2: #bb86fc; /* Light Purple Text */
-            --card-bg-dark: #2a113a; /* Dark Card Background */
-            --border-dark: #5e35b1; /* Dark Violet Border */
+            --text-dark-2: #bb86fc;
+            --card-bg-dark: #2a113a;
+            --border-dark: #5e35b1;
             --shadow-dark: rgba(0, 0, 0, 0.6);
             --success-dark: #66bb6a;
             --error-dark: #ef5350;
         }
 
-        /* Basic Reset & Box Sizing */
         *, *::before, *::after {
             box-sizing: border-box;
             margin: 0;
@@ -54,7 +63,7 @@
 
         body {
             font-family: 'Space Grotesk', sans-serif;
-            overflow: hidden; /* Prevent body scroll while splash screen is active */
+            overflow: hidden;
             background-color: var(--bg-light-1);
             color: var(--text-light-1);
             transition: background-color 0.3s, color 0.3s;
@@ -67,7 +76,6 @@
             color: var(--text-dark-1);
         }
 
-        /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -89,18 +97,15 @@
             background: var(--secondary-dark);
         }
 
-        /* Hide scrollbars for specific elements */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
-        /* Material Icons sizing adjustment */
         .material-symbols-outlined {
             font-size: inherit;
             vertical-align: middle;
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
 
-        /* Splash screen loading bar animation */
         @keyframes fill-bar {
             from { width: 0%; }
             to { width: 100%; }
@@ -109,7 +114,6 @@
             animation: fill-bar 2s ease-out forwards;
         }
         
-        /* Toast notification animations */
         @keyframes toastIn {
             from { transform: translateY(100%) scale(0.9); opacity: 0; }
             to { transform: translateY(0) scale(1); opacity: 1; }
@@ -121,7 +125,6 @@
         .toast-in { animation: toastIn 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards; }
         .toast-out { animation: toastOut 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards; }
 
-        /* A simple spinner for buttons */
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
@@ -139,7 +142,6 @@
             border-top-color: black;
         }
         
-        /* Fade in animation for elements */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -148,7 +150,6 @@
             animation: fadeIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
-        /* Hero text gradient animation */
         @keyframes gradient-shift {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -159,7 +160,6 @@
             animation: gradient-shift 3s linear infinite;
         }
 
-        /* Button base styles */
         .btn {
             display: flex;
             align-items: center;
@@ -171,7 +171,7 @@
             border-radius: 0.75rem;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            transform: translateZ(0); /* Force GPU acceleration */
+            transform: translateZ(0);
             cursor: pointer;
             border: none;
             outline: none;
@@ -185,7 +185,6 @@
             box-shadow: none;
         }
 
-        /* Primary button */
         .btn-primary {
             background-image: linear-gradient(to right, var(--primary-light) 0%, var(--secondary-light) 51%, var(--primary-light) 100%);
             color: white;
@@ -193,10 +192,9 @@
         }
         .btn-primary:hover {
             background-position: right center;
-            box-shadow: 0 0 20px rgba(90, 46, 155, 0.5); /* Primary-light shadow */
+            box-shadow: 0 0 20px rgba(90, 46, 155, 0.5);
         }
 
-        /* Danger button */
         .btn-danger {
             background-image: linear-gradient(to right, var(--error-light) 0%, #d32f2f 51%, var(--error-light) 100%);
             color: white;
@@ -204,10 +202,9 @@
         }
         .btn-danger:hover {
             background-position: right center;
-            box-shadow: 0 0 20px rgba(244, 67, 54, 0.5); /* Error-light shadow */
+            box-shadow: 0 0 20px rgba(244, 67, 54, 0.5);
         }
 
-        /* Secondary button */
         .btn-secondary {
             background-image: linear-gradient(to right, #6b7280 0%, #9ca3af 51%, #6b7280 100%);
             color: white;
@@ -218,7 +215,17 @@
             box-shadow: 0 0 20px rgba(107, 114, 128, 0.5);
         }
 
-        /* Email Item hover effect */
+        /* PWA Install Button */
+        .btn-install {
+            background-image: linear-gradient(to right, #00bcd4 0%, #2196f3 51%, #00bcd4 100%);
+            color: white;
+            background-size: 200% auto;
+        }
+        .btn-install:hover {
+            background-position: right center;
+            box-shadow: 0 0 20px rgba(0, 188, 212, 0.5);
+        }
+
         .email-item-hover:hover {
             transform: translateY(-3px) scale(1.01);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
@@ -227,7 +234,6 @@
             box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.05), 0 4px 6px -2px rgba(255, 255, 255, 0.02);
         }
 
-        /* Animated background for app container */
         body::before {
             content: '';
             position: fixed;
@@ -235,7 +241,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, #f3e5f5, #e1bee7, #f3e5f5); /* Light purple hues */
+            background: linear-gradient(45deg, #f3e5f5, #e1bee7, #f3e5f5);
             background-size: 400% 400%;
             animation: background-gradient 15s ease infinite;
             z-index: -1;
@@ -243,7 +249,7 @@
         }
 
         body.dark::before {
-            background: linear-gradient(45deg, #210e30, #3a1c4e, #210e30); /* Dark violet hues */
+            background: linear-gradient(45deg, #210e30, #3a1c4e, #210e30);
             opacity: 0.5;
         }
 
@@ -253,7 +259,6 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Email body iframe styling */
         #email-body {
             background-color: var(--card-bg-light);
             color: var(--text-light-1);
@@ -263,7 +268,7 @@
             color: var(--text-dark-1);
         }
 
-        /* Utility classes (mimicking Tailwind) */
+        /* Utility classes */
         .flex { display: flex; }
         .flex-col { flex-direction: column; }
         .items-center { align-items: center; }
@@ -314,6 +319,7 @@
         .z-10 { z-index: 10; }
         .z-20 { z-index: 20; }
         .z-50 { z-index: 50; }
+        .z-100 { z-index: 100; }
         .overflow-hidden { overflow: hidden; }
         .overflow-y-auto { overflow-y: auto; }
         .space-y-3 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.75rem; }
@@ -358,13 +364,13 @@
         .border-gray-100 { border-color: #f3f4f6; }
         .border-gray-200 { border-color: #e5e7eb; }
         .border-gray-700 { border-color: #374151; }
-        .border-green-400 { border-color: #81c784; } /* Light green for success */
+        .border-green-400 { border-color: #81c784; }
         .bg-gray-50 { background-color: #f9fafb; }
         .bg-white { background-color: white; }
         .bg-gradient-to-r { background-image: linear-gradient(to right, var(--tw-gradient-stops)); }
         .from-blue-500 { --tw-gradient-from: #5a2e9b; --tw-gradient-to: rgba(90, 46, 155, 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
         .via-purple-600 { --tw-gradient-via: #9c27b0; }
-        .to-pink-500 { --tw-gradient-to: #e91e63; } /* Pink accent */
+        .to-pink-500 { --tw-gradient-to: #e91e63; }
         .from-indigo-500 { --tw-gradient-from: #673ab7; --tw-gradient-to: rgba(103, 58, 183, 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
         .to-purple-500 { --tw-gradient-to: #9c27b0; }
         .from-green-500 { --tw-gradient-from: #4caf50; --tw-gradient-to: rgba(76, 175, 80, 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
@@ -387,7 +393,7 @@
         .active\:scale-95:active { --tw-scale-x: 0.95; --tw-scale-y: 0.95; }
         .hover\:rotate-90:hover { --tw-rotate: 90deg; }
 
-        /* Dark mode specific styles */
+        /* Dark mode styles */
         body.dark .bg-gray-900 { background-color: #210e30; }
         body.dark .bg-gray-900\/80 { background-color: rgba(33, 14, 48, 0.8); }
         body.dark .bg-gray-800 { background-color: #2a113a; }
@@ -404,7 +410,7 @@
         body.dark .to-emerald-700 { --tw-gradient-to: #2e7d32; }
         body.dark .border-green-600 { border-color: #66bb6a; }
         body.dark .hover\:bg-gray-700:hover { background-color: #3a1c4e; }
-        body.dark .bg-gray-50\/80 { background-color: rgba(33, 14, 48, 0.8); } /* Darker backdrop for header */
+        body.dark .bg-gray-50\/80 { background-color: rgba(33, 14, 48, 0.8); }
         body.dark .border-gray-200\/50 { border-color: rgba(94, 53, 177, 0.5); }
         body.dark .border-gray-700\/50 { border-color: rgba(179, 157, 219, 0.5); }
         body.dark .bg-white\/60 { background-color: rgba(42, 17, 58, 0.6); }
@@ -424,7 +430,6 @@
         body.dark .bg-gray-700\/50 { background-color: rgba(58, 28, 78, 0.5); }
         body.dark .border-gray-600\/50 { border-color: rgba(139, 92, 246, 0.5); }
 
-        /* Keyframe for bounce-slow */
         @keyframes bounce-slow {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-5px); }
@@ -433,7 +438,6 @@
             animation: bounce-slow 2s infinite ease-in-out;
         }
 
-        /* Keyframe for pulse */
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: .5; }
@@ -442,7 +446,6 @@
             animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
 
-        /* Keyframe for header gradient */
         @keyframes header-gradient {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -453,14 +456,12 @@
             animation: header-gradient 5s ease infinite;
         }
 
-        /* Responsive adjustments */
         @media (max-width: 640px) {
             .text-5xl { font-size: 2.5rem; }
             .text-6xl { font-size: 3rem; }
-            .h-\[60vh\] { height: 70vh; } /* More space for email content on small screens */
+            .h-\[60vh\] { height: 70vh; }
         }
 
-        /* New styles for improved UI */
         .stats-container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -584,7 +585,7 @@
             background-color: #ff9800;
             animation: pulse 1.5s infinite;
         }
-        
+
         .settings-panel {
             position: fixed;
             top: 0;
@@ -740,7 +741,6 @@
             color: var(--secondary-dark);
         }
 
-        /* Privacy and Terms Popup Styles */
         .popup-overlay {
             position: fixed;
             top: 0;
@@ -1006,6 +1006,56 @@
             box-shadow: 0 8px 25px rgba(179, 157, 219, 0.4);
         }
 
+        /* Install Banner */
+        .install-banner {
+            display: none;
+            background: linear-gradient(135deg, #00bcd4, #2196f3);
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            color: white;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0, 188, 212, 0.3);
+        }
+
+        .install-banner.show {
+            display: flex;
+        }
+
+        .install-banner-content {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .install-banner-content .material-symbols-outlined {
+            font-size: 2rem;
+        }
+
+        .install-banner-text {
+            font-weight: 500;
+        }
+
+        .install-banner-text small {
+            display: block;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        .install-banner .btn {
+            width: auto;
+            padding: 0.5rem 1rem;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.3);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .install-banner .btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
         @media (max-width: 768px) {
             .popup-container {
                 padding: 1.5rem;
@@ -1015,8 +1065,22 @@
             .popup-title {
                 font-size: 1.5rem;
             }
-        }
 
+            .install-banner {
+                flex-direction: column;
+                gap: 0.75rem;
+                text-align: center;
+            }
+
+            .install-banner-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .install-banner .btn {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -1049,6 +1113,21 @@
             </header>
 
             <main class="p-4 space-y-5 flex-grow overflow-y-auto no-scrollbar relative">
+                <!-- PWA Install Banner -->
+                <div id="install-banner" class="install-banner">
+                    <div class="install-banner-content">
+                        <span class="material-symbols-outlined">install_mobile</span>
+                        <div class="install-banner-text">
+                            Install MART Mail
+                            <small>Get the app for faster access</small>
+                        </div>
+                    </div>
+                    <button id="install-btn" class="btn">
+                        <span class="material-symbols-outlined">download</span>
+                        Install
+                    </button>
+                </div>
+
                 <!-- Stats Cards -->
                 <div class="stats-container">
                     <div class="stat-card">
@@ -1370,7 +1449,7 @@
                 <div class="contact-info">
                     <h4><span class="material-symbols-outlined">contact_support</span>Contact Us</h4>
                     <p>If you have any questions about this Privacy Policy, please contact:</p>
-<p class="contact-email"><a href="mailto:mdashfaqurrahmantanim@gmail.com">mdashfaqurrahmantanim@gmail.com</a></p>
+                    <p class="contact-email"><a href="mailto:mdashfaqurrahmantanim@gmail.com">mdashfaqurrahmantanim@gmail.com</a></p>
                 </div>
 
                 <div class="popup-footer">
@@ -1491,7 +1570,7 @@
                 <div class="contact-info">
                     <h4><span class="material-symbols-outlined">contact_support</span>Contact Information</h4>
                     <p>For questions about these Terms of Service:</p>
-<p class="contact-email"><a href="mailto:mdashfaqurrahmantanim@gmail.com">mdashfaqurrahmantanim@gmail.com</a></p>
+                    <p class="contact-email"><a href="mailto:mdashfaqurrahmantanim@gmail.com">mdashfaqurrahmantanim@gmail.com</a></p>
                 </div>
 
                 <div class="popup-footer">
@@ -1506,6 +1585,68 @@
     </div>
 
     <script>
+        // --- PWA INSTALLATION ---
+        let deferredPrompt = null;
+        const installBanner = document.getElementById('install-banner');
+        const installBtn = document.getElementById('install-btn');
+
+        // Listen for the beforeinstallprompt event
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent the mini-infobar from appearing on mobile
+            e.preventDefault();
+            // Stash the event so it can be triggered later
+            deferredPrompt = e;
+            // Show the install banner
+            installBanner.classList.add('show');
+            console.log('PWA: Install prompt available');
+        });
+
+        // Handle the install button click
+        installBtn.addEventListener('click', async () => {
+            if (!deferredPrompt) {
+                showToast('Installation not available. Please use the browser menu.', 'warning');
+                return;
+            }
+
+            // Show the install prompt
+            deferredPrompt.prompt();
+
+            // Wait for the user to respond to the prompt
+            const { outcome } = await deferredPrompt.userChoice;
+
+            // Reset the deferred prompt variable
+            deferredPrompt = null;
+
+            if (outcome === 'accepted') {
+                console.log('PWA: User accepted the install prompt');
+                showToast('App installed successfully!', 'success');
+                installBanner.classList.remove('show');
+            } else {
+                console.log('PWA: User dismissed the install prompt');
+                showToast('Installation cancelled.', 'info');
+            }
+        });
+
+        // Listen for successful installation
+        window.addEventListener('appinstalled', () => {
+            console.log('PWA: App installed successfully');
+            installBanner.classList.remove('show');
+            showToast('Thank you for installing MART Mail!', 'success');
+        });
+
+        // --- SERVICE WORKER REGISTRATION ---
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then((registration) => {
+                        console.log('Service Worker registered successfully:', registration);
+                    })
+                    .catch((error) => {
+                        console.log('Service Worker registration failed:', error);
+                    });
+            });
+        }
+
         // --- STATE MANAGEMENT ---
         const API_BASE = 'https://api.mail.tm';
         let currentAccount = {
@@ -1633,7 +1774,7 @@
             showSpinner(DOMElements.changeMailBtn, true);
             showSpinner(DOMElements.deleteMailBtn, true);
             
-            clearInterval(inboxInterval); // Clear existing interval
+            clearInterval(inboxInterval);
             updateConnectionStatus('connecting');
 
             if (isDelete && currentAccount.id && currentAccount.token) {
@@ -1700,10 +1841,8 @@
                 showToast("New email generated!", "success");
                 checkInbox();
                 
-                // Start session timer
                 startSessionTimer();
                 
-                // Setup auto-refresh if enabled
                 if (settings.autoRefresh) {
                     inboxInterval = setInterval(checkInbox, settings.refreshInterval);
                 }
@@ -1741,7 +1880,6 @@
                 if (newMessages.length > 0) {
                     showToast(`${newMessages.length} new email(s) arrived!`, "info");
                     
-                    // Show browser notification if enabled
                     if (settings.notifications && 'Notification' in window && Notification.permission === 'granted') {
                         new Notification(`MART Mail-Generator`, {
                             body: `You have ${newMessages.length} new email(s)`,
@@ -1768,7 +1906,6 @@
             DOMElements.emailScreen.classList.remove('hidden');
             DOMElements.emailScreen.classList.add('flex');
             
-            // Clear previous content
             DOMElements.emailSubjectHeader.textContent = 'Loading...';
             DOMElements.emailSubjectDisplay.textContent = 'Loading...';
             DOMElements.emailFrom.textContent = '';
@@ -1792,10 +1929,8 @@
                 DOMElements.emailTimestamp.textContent = formatDate(new Date(emailData.createdAt));
                 DOMElements.emailAvatar.textContent = (emailData.from.name || emailData.from.address)[0].toUpperCase();
                 
-                // Add tags based on email content
                 addEmailTags(emailData);
                 
-                // Render HTML content safely in a sandboxed iframe
                 const themeClass = document.documentElement.classList.contains('dark') ? 'dark' : '';
                 let emailContent = '';
                 
@@ -1854,7 +1989,6 @@
                 DOMElements.inboxList.style.display = 'block';
                 messages.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
                 
-                // Update email count
                 DOMElements.emailCount.textContent = messages.length;
                 
                 messages.forEach(msg => {
@@ -1862,7 +1996,6 @@
                     emailItem.className = 'bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-lg cursor-pointer transition-all duration-200 email-item-hover border border-gray-100 dark:border-gray-700 fade-in';
                     emailItem.dataset.id = msg.id;
                     
-                    // Determine if email is unread (simulated)
                     const isUnread = !msg.hasBeenRead;
                     
                     emailItem.innerHTML = `
@@ -1881,7 +2014,6 @@
                     `;
                     DOMElements.inboxList.appendChild(emailItem);
                     
-                    // Add expand functionality
                     const expandBtn = emailItem.querySelector('.expand-btn');
                     const emailPreview = emailItem.querySelector('.email-preview');
                     
@@ -2015,19 +2147,16 @@
             
             sessionTimer = setInterval(() => {
                 const now = new Date();
-                const diff = Math.floor((now - sessionStartTime) / 1000 / 60); // Difference in minutes
+                const diff = Math.floor((now - sessionStartTime) / 1000 / 60);
                 DOMElements.sessionTime.textContent = `${diff}m`;
-            }, 60000); // Update every minute
+            }, 60000);
         };
 
         const addEmailTags = (emailData) => {
-            // Clear previous tags
             DOMElements.emailTags.innerHTML = '';
             
-            // Add tags based on email content
             const tags = [];
             
-            // Check for common email types
             if (emailData.subject) {
                 const subject = emailData.subject.toLowerCase();
                 
@@ -2048,7 +2177,6 @@
                 }
             }
             
-            // Add tags to DOM
             tags.forEach(tag => {
                 const tagElement = document.createElement('span');
                 tagElement.className = `email-tag ${tag.type}`;
@@ -2064,7 +2192,6 @@
                 settings = { ...settings, ...JSON.parse(savedSettings) };
             }
             
-            // Apply settings to UI
             DOMElements.autoRefreshToggle.checked = settings.autoRefresh;
             DOMElements.refreshInterval.value = settings.refreshInterval;
             DOMElements.emailFormat.value = settings.emailFormat;
@@ -2112,7 +2239,6 @@
                 DOMElements.themeIcon.textContent = 'dark_mode';
             }
 
-            // Update iframe content if it's already loaded
             if (DOMElements.emailBody.contentDocument) {
                 const iframeHtml = DOMElements.emailBody.contentDocument.documentElement;
                 if (theme === 'dark') {
@@ -2132,10 +2258,8 @@
 
         // --- INITIALIZATION ---
         const initApp = async () => {
-            // Load settings
             loadSettings();
             
-            // Setup theme
             let savedTheme = localStorage.getItem('theme');
             if (!savedTheme && settings.defaultTheme === 'system') {
                 savedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -2144,23 +2268,19 @@
             }
             applyTheme(savedTheme);
 
-            // Request notification permission
             if ('Notification' in window && settings.notifications) {
                 Notification.requestPermission();
             }
 
-            // Splash screen logic
             setTimeout(() => {
                 DOMElements.splashScreen.style.opacity = '0';
                 DOMElements.appContainer.style.opacity = '1';
-                document.body.style.overflow = 'auto'; // Re-enable body scroll
+                document.body.style.overflow = 'auto';
                 DOMElements.splashScreen.addEventListener('transitionend', () => DOMElements.splashScreen.style.display = 'none');
             }, 2500);
 
-            // Initial email generation
             await getNewEmail();
 
-            // Setup event listeners
             DOMElements.copyBtn.addEventListener('click', copyToClipboard);
             DOMElements.changeMailBtn.addEventListener('click', () => getNewEmail(false));
             DOMElements.deleteMailBtn.addEventListener('click', () => getNewEmail(true));
@@ -2174,7 +2294,6 @@
                 }
             });
             
-            // Settings event listeners
             DOMElements.settingsBtn.addEventListener('click', openSettings);
             DOMElements.closeSettingsBtn.addEventListener('click', closeSettings);
             DOMElements.settingsOverlay.addEventListener('click', closeSettings);
@@ -2237,13 +2356,11 @@
             
             DOMElements.resetSettingsBtn.addEventListener('click', resetSettings);
             
-            // "Delete Message" is simulated locally by just going back to the inbox.
             DOMElements.deleteMessageBtn.addEventListener('click', () => {
                 showToast("Message hidden locally.", "info");
                 showHomeScreen();
             });
             
-            // Simulated reply button
             DOMElements.replyBtn.addEventListener('click', () => {
                 showToast("Reply functionality is simulated in this demo.", "info");
             });
